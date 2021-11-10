@@ -1,0 +1,4 @@
+Niel - arduino
+Calvin - back-end
+Joshua - front-end
+
