@@ -1,0 +1,38 @@
+.col-6{
+    margin-bottom: 30px;
+}
+
+.h2{
+    margin-left: 50px;
+}
+
+.h5{
+    margin-top: 20px;
+    font-weight: 450;
+}
+
+.input{
+    height: 30px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.navbar{
+    background-color: rgb(195, 201, 201);
+} 
+
+.navbar-brand{
+    font-weight: bolder;
+    font-size: 35px;
+}
+
+.position{
+    margin-top: 20px;
+}
+
+.p-3{
+    font-size: 30px;
+    font-weight: 600;
+    height: 464px;
+}
+
