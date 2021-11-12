@@ -11,10 +11,22 @@
     font-weight: 450;
 }
 
+#informasi{
+    font-weight: 450;
+}
+
 .input{
     height: 30px;
     width: 100px;
-    border-radius: 10px;
+    font-size: small;
+}
+
+#layout-informasi{
+    height: 50px;
+}
+
+#main-layout{
+    margin-top: 40px;
 }
 
 .navbar{
@@ -27,7 +39,7 @@
 }
 
 .position{
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .p-3{
@@ -35,4 +47,6 @@
     font-weight: 600;
     height: 464px;
 }
+
+
 
