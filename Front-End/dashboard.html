@@ -16,7 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
     <!-- bar navigasi -->
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <a class="navbar-brand" href="index.html">JNC</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -25,18 +25,19 @@
           <div class="navbar-nav">
             <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
             <a class="nav-link active" href="dashboard.html">Dashboard</a>
+            <a class="nav-link" href="datalog.html">Data Log</a>
             
           </div>
         </div>
     </nav>
 
-    <!-- Main Layout -->
+    <!-- Input Form & Informasi Layout -->
     <div class="container" id="main-layout">
       <div class="row g-2">
 
-        <!-- Layout 1 -->
+        <!-- Layout Input Form -->
         <div class="col-6">
-          <div class="p-3 border bg-light">Input Form
+          <div class="p-3 border" id="layout-input-form">INPUT FORM
             <div class="container position">
               <div class="row g-2">
                 <div class="col-4">
@@ -55,16 +56,16 @@
                   <input class="input" type="text">
                 </div>
               </div>
-
+              <span><a href="#"></a></span>
             </div>
           </div>
         </div>
 
-        <!-- Layout 2 -->
+        <!-- Layout Informasi -->
         <div class="col-6">
-          <div class="p-3 border bg-light">Informasi
+          <div class="p-3 border" id="layout-informasi">INFORMASI
             <div class="container position">
-              <div class="row g-2" id="layout-informasi">
+              <div class="row g-2" id="isi-informasi">
                 <div class="col-4">
                   <h5 id="informasi">Kadar pH</h5>
                 </div>
@@ -74,7 +75,7 @@
                 </div>
               </div>
 
-              <div class="row g-2" id="layout-informasi">
+              <div class="row g-2" id="isi-informasi">
                 <div class="col-4">
                   <h5 id="informasi">Kadar PPM</h5>
                 </div>
@@ -84,7 +85,7 @@
                 </div>
               </div>
 
-              <div class="row g-2" id="layout-informasi">
+              <div class="row g-2" id="isi-informasi">
                 <div class="col-4">
                   <h5 id="informasi">Tinggi Air</h5>
                 </div>
@@ -98,24 +99,43 @@
             </div>
           </div>
         </div>
-
-        <!-- Layout 3 -->
-        <div class="col-6">
-          <div class="p-3 border bg-light">Notifikasi</div>
-          <div class="container">
-            
-          </div>
-        </div>
-
-        <!-- Layout 4 -->
-        <div class="col-6">
-          <div class="p-3 border bg-light">Log Informasi</div>
-        </div>
         
 
-
+        
+  
       </div>
     </div>
 
+    <!-- Layout Notifikasi -->
+    <div class="container">
+      <div class="p-3 border" id="layout-notifikasi">NOTIFIKASI
+        <div class="container position">
+          <table class="table table-striped">
+            <!-- <thead>
+              <tr>
+                <th>Firstname</th>
+              </tr>
+            </thead> -->
+            <tbody>
+              <tr>
+                <td id="message">Ketinggian air sudah rendah, mohon isi kembali wadah air</td>
+                <td id="message-datetime">19/10/2021 10.23</td>  
+              </tr>
+              <tr>
+                <td id="message">Ketinggian air sudah rendah, mohon isi kembali wadah air</td>
+                <td id="message-datetime">19/10/2021 10.23</td>  
+              </tr>
+              <tr>
+                <td id="message">Ketinggian air sudah rendah, mohon isi kembali wadah air</td>
+                <td id="message-datetime">19/10/2021 10.23</td>  
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+
+    
   </body>
 </html>

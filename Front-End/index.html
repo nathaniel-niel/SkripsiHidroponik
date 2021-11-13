@@ -16,7 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
     <!-- bar navigasi -->
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <a class="navbar-brand" href="index.html">JNC</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -25,13 +25,14 @@
           <div class="navbar-nav">
             <a class="nav-link active" href="index.html">Home <span class="sr-only">(current)</span></a>
             <a class="nav-link" href="dashboard.html">Dashboard</a>
+            <a class="nav-link" href="datalog.html">Data Log</a>
           </div>
         </div>
     </nav>
     
 
     <!-- Kolom Penjelasan Project -->
-    <div class="container">
+    <div class="container" id="container-jumbotron">
         <div class="jumbotron">
             <h1 class="display-4">PENJELASAN PROJECT</h1>
             <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
@@ -42,46 +43,49 @@
     </div>
     
     <!-- Tutorial Title -->
-    <h2 class="position">Tutorial</h2>
+    <div class="container" id="container-tutorial">
+      <h1 class="title-tutorial">TUTORIAL</h1>
 
-    <!-- Tutorial Items 1 -->
-    <div class="container">
-      <div id="nomor">
-        <h5>1. Blablabla...</h5>
-        <div class="card mb-3" style="max-width: fill;">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img src="/Pictures/placeholder.jpg" class="img-fluid rounded-start" alt="...">
+      <!-- Tutorial Items 1 -->
+      <div class="container">
+        <div id="nomor">
+          <h5>1. Blablabla...</h5>
+          <div class="card mb-3" style="max-width: fill;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="/Pictures/placeholder.jpg" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+              </div>
             </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+
+        <!-- Tutorial Items 2 -->
+        <div id="nomor">
+          <h5>2. Blablabla...</h5>
+          <div class="card mb-3" style="max-width: fill;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="/Pictures/placeholder.jpg" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Tutorial Items 2 -->
-      <div id="nomor">
-        <h5>2. Blablabla...</h5>
-        <div class="card mb-3" style="max-width: fill;">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img src="/Pictures/placeholder.jpg" class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    
 
 
 

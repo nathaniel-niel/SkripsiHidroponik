@@ -1,6 +1,11 @@
-.h2{
-    margin-left: 50px;
+#container-jumbotron{
+    margin-top: 120px;
 }
+
+#container-tutorial{
+    padding-left: 50px;
+}
+
 .navbar{
     background-color: rgb(195, 201, 201);
 } 
@@ -23,6 +28,7 @@
 }
 
 .jumbotron{
+    border-radius: 20px;
     margin-top: 40px;
     padding-top: 20px;
 }
@@ -30,6 +36,10 @@
 .display-4{
     font-size: 45px;
     font-weight: 500;
+}
+
+.title-tutorial{
+    margin-bottom: 30px;
 }
 
 /* .container{
