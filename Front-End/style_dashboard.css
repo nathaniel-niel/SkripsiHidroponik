@@ -1,0 +1,147 @@
+.btn{
+    border-radius: 10px;
+    background-color: rgb(115, 226, 115);
+    color: #fff;
+    margin-top: 180px;
+    margin-left: 330px;
+    width: 140px;
+}
+
+.btn:hover{
+    background-color: rgb(214, 213, 210);
+}
+
+.col-6{
+    margin-bottom: 30px;
+}
+
+.h2{
+    margin-left: 50px;
+}
+
+.h5{
+    margin-top: 20px;
+    font-weight: 450;
+}
+
+#informasi{
+    font-weight: 450;
+}
+
+.input{
+    height: 30px;
+    width: 100px;
+    font-size: small;
+}
+
+#isi-informasi{
+    height: 50px;
+}
+
+#layout-informasi{
+    background-color: rgb(240, 240, 240);
+    border-radius: 20px;
+}
+
+#layout-input-form{
+    background-color: rgb(240, 240, 240);
+    border-radius: 20px;
+}
+
+
+#layout-notifikasi{
+    background-color: rgb(240, 240, 240);
+    border-radius: 20px;
+    height: auto;
+    margin-bottom: 40px;
+}
+
+#main-layout{
+    margin-top: 120px;
+}
+
+#message{
+    font-weight: 400;
+    font-size: 20px;
+}
+
+#message-datetime{
+    font-weight: 400;
+    font-size: 20px;
+    text-align: right;
+}
+
+.navbar{
+    background-color: rgb(195, 201, 201);
+} 
+
+.navbar-brand{
+    font-weight: bolder;
+    font-size: 35px;
+}
+
+/* #navbar-position{
+    width: 100%;
+    position: fixed;
+} */
+
+.table{
+    width: fill;
+}
+
+.position{
+    margin-top: 40px;
+    width: 100%;
+}
+
+.p-3{
+    font-size: 30px;
+    font-weight: 600;
+    height: 464px;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+span{
+    position: relative;
+    display: inline-flex;
+    width: 180px;
+    height: 55px;
+    margin: 170px 15px;
+    margin-left: 340px;
+    perspective: 1000px;
+  }
+  span a{
+    font-size: 19px;
+    letter-spacing: 1px;
+    transform-style: preserve-3d;
+    transform: translateZ(-25px);
+    transition: transform .25s;
+    font-family: 'Montserrat', sans-serif;
+    
+  }
+  span a:before,
+  span a:after{
+    position: absolute;
+    content: "Save";
+    height: 55px;
+    width: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid black;
+    box-sizing: border-box;
+    border-radius: 5px;
+  }
+  span a:before{
+    color: #fff;
+    background: #000;
+    transform: rotateY(0deg) translateZ(25px);
+  }
+  span a:after{
+    color: #000;
+    transform: rotateX(90deg) translateZ(25px);
+  }
+  span a:hover{
+    transform: translateZ(-25px) rotateX(-90deg);
+  }
+
