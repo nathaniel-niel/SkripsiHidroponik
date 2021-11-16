@@ -8,8 +8,8 @@
 
 // MARK: - Connection sttufs
 
-const char* ssid = "yourWifiName";
-const char* pass = "yourWifiPassword";
+const char* ssid = "Kos dewi lt.1";
+const char* pass = "Lecuan777";
 
 
 // MARK: - Delay
@@ -74,7 +74,7 @@ void sendData(){
   String data = (String)"?batasan_ph="+batasan_ph+"&batasan_ppm="+batasan_ppm+"&batasan_air="+batasan_air;
    
     // Start HTTP Connection
-  if (http.begin(client, "http://192.168.100.125/php/data.php?batasan_ph="+String(batasan_ph)+"&batasan_ppm="+String(batasan_ppm)+"&batasan_air="+String(batasan_air))){
+  if (http.begin(client, "http://192.168.0.110/SkripsiHidroponik/arduino/phpfile/data.php?batasan_ph="+String(batasan_ph)+"&batasan_ppm="+String(batasan_ppm)+"&batasan_air="+String(batasan_air))){
     
     // start connection and send HTTP Header
     int httpCode = http.GET();
@@ -102,9 +102,9 @@ void sendData(){
 
  // MARK: - Get data from sensor
 
- int getpHsesorData(){
+ float getpHsesorData(){
   // dummy data
-    return random(0,14);
+    return random(0.0,14.0);
  }
 
  int getPpmSensorData(){

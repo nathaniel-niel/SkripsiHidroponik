@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "learning";
+$dbname = "skripsi";
 
 // batasan by user input [dummy]
 $input_ph = 9;
@@ -20,7 +20,7 @@ if ($conn->connect_error) {
 $batasan_ph = $_GET["batasan_ph"];
 $batasan_ppm = $_GET["batasan_ppm"];
 $batasan_air = $_GET["batasan_air"];
-$sql = "INSERT INTO userinput 
+$sql = "INSERT INTO arduino_input 
 VALUES (null, '.$batasan_ph.' , '.$batasan_ppm.', '.$batasan_air.')";
 
 

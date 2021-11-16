@@ -45,7 +45,7 @@ if (isset($_POST["submit"])) {
       <div class="navbar-nav">
         <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
         <a class="nav-link active" href="dashboard.php">Dashboard</a>
-        <a class="nav-link" href="datalog.html">Data Log</a>
+        <a class="nav-link" href="datalog.php">Data Log</a>
       </div>
     </div>
   </nav>
@@ -88,37 +88,27 @@ if (isset($_POST["submit"])) {
       <div class="col-6">
         <div class="p-3 border" id="layout-informasi">
           INFORMASI
-          <div class="container position">
-            <div class="row g-2" id="isi-informasi">
-              <div class="col-4">
-                <h5 id="informasi">Kadar pH</h5>
-              </div>
-              <h5 id="informasi">:</h5>
-              <div class="col-4">
-                <h5 id="informasi">7.20</h5>
-              </div>
-            </div>
+          <?php
+          // Attempt select query execution
+          $sql = "SELECT * FROM arduino_input ORDER BY id DESC LIMIT 1";
+          $result = mysqli_query($conn, $sql);
+          ?>
+          <table class="table table-bordered table-striped">
+            <tr>
+              <th id="t-head">pH</th>
+              <th id="t-head">PPM</th>
+              <th id="t-head">Water Level</th>
+            </tr>
+            <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+              <tr>
+                <td><?= $row['batasan_ph']; ?></td>
+                <td><?= $row['batasan_ppm']; ?></td>
+                <td><?= $row['batasan_air']; ?></td>
+              </tr>
+            <?php
+            endwhile; ?>
+          </table>
 
-            <div class="row g-2" id="isi-informasi">
-              <div class="col-4">
-                <h5 id="informasi">Kadar PPM</h5>
-              </div>
-              <h5 id="informasi">:</h5>
-              <div class="col-4">
-                <h5 id="informasi">1202</h5>
-              </div>
-            </div>
-
-            <div class="row g-2" id="isi-informasi">
-              <div class="col-4">
-                <h5 id="informasi">Tinggi Air</h5>
-              </div>
-              <h5 id="informasi">:</h5>
-              <div class="col-4">
-                <h5 id="informasi">High</h5>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
