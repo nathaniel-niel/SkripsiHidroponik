@@ -120,12 +120,7 @@ if (isset($_POST["submit"])) {
       NOTIFIKASI
       <div class="container position">
         <table class="table table-striped">
-          <!-- <thead>
-              <tr>
-                <th>Firstname</th>
-              </tr>
-            </thead> -->
-          <tbody>
+          <th id="notif">
             <tr>
               <td id="message">
                 Ketinggian air sudah rendah, mohon isi kembali wadah air
@@ -144,7 +139,7 @@ if (isset($_POST["submit"])) {
               </td>
               <td id="message-datetime">19/10/2021 10.23</td>
             </tr>
-          </tbody>
+          </th>
         </table>
       </div>
     </div>
