@@ -34,6 +34,7 @@ require '../global.php';
         <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
         <a class="nav-link" href="dashboard.php">Dashboard</a>
         <a class="nav-link active" href="datalog.php">Data Log</a>
+        <a class="nav-link" href="devicecollection.html">Device Collection</a>
       </div>
     </div>
   </nav>
@@ -50,10 +51,10 @@ require '../global.php';
     ?>
     <table class="table table-bordered table-striped">
       <tr>
-        <th id="t-head">No</th>
-        <th id="t-head">pH</th>
-        <th id="t-head">PPM</th>
-        <th id="t-head">Water Level</th>
+        <th id="header">No</th>
+        <th id="header">pH</th>
+        <th id="header">PPM</th>
+        <th id="header">Water Level</th>
       </tr>
       <?php while ($row = mysqli_fetch_assoc($result)) : ?>
         <tr>

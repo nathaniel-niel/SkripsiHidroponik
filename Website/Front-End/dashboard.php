@@ -46,6 +46,7 @@ if (isset($_POST["submit"])) {
         <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
         <a class="nav-link active" href="dashboard.php">Dashboard</a>
         <a class="nav-link" href="datalog.php">Data Log</a>
+        <a class="nav-link" href="devicecollection.html">Device Collection</a>
       </div>
     </div>
   </nav>
@@ -64,7 +65,7 @@ if (isset($_POST["submit"])) {
                   <label for="batasan_ph" class="h5">Batasan pH</label>
                 </div>
                 <div class="col-4">
-                  <input type="text" id="batasan_ph" name="batasan_ph" value="" required>
+                  <input type="number" step=".01" id="batasan_ph" name="batasan_ph" value="" required>
                 </div>
               </div>
 
@@ -73,7 +74,7 @@ if (isset($_POST["submit"])) {
                   <label for="batasan_ppm" class="h5">Batasan PPM</label>
                 </div>
                 <div class="col-4">
-                  <input type="text" id="batasan_ppm" name="batasan_ppm" value="" required />
+                  <input type="number" id="batasan_ppm" name="batasan_ppm" value="" required />
                 </div>
               </div>
 

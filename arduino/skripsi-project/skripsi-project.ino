@@ -8,8 +8,8 @@
 
 // MARK: - Connection sttufs
 
-const char* ssid = "Kos dewi lt.1";
-const char* pass = "Lecuan777";
+const char* ssid = "Maju Bersama Motor";
+const char* pass = "laurencia";
 
 
 // MARK: - Delay
@@ -74,7 +74,7 @@ void sendData(){
   String data = (String)"?batasan_ph="+batasan_ph+"&batasan_ppm="+batasan_ppm+"&batasan_air="+batasan_air;
    
     // Start HTTP Connection
-  if (http.begin(client, "http://192.168.0.110/SkripsiHidroponik/arduino/phpfile/data.php?batasan_ph="+String(batasan_ph)+"&batasan_ppm="+String(batasan_ppm)+"&batasan_air="+String(batasan_air))){
+  if (http.begin(client, "http://192.168.100.254/SkripsiHidroponik/arduino/phpfile/data.php?batasan_ph="+String(batasan_ph)+"&batasan_ppm="+String(batasan_ppm)+"&batasan_air="+String(batasan_air))){
     
     // start connection and send HTTP Header
     int httpCode = http.GET();
