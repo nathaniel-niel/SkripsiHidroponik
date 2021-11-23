@@ -2,8 +2,6 @@
 require '../global.php';
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,6 +32,7 @@ require '../global.php';
         <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
         <a class="nav-link" href="dashboard.php">Dashboard</a>
         <a class="nav-link active" href="datalog.php">Data Log</a>
+        <a class="nav-link" href="new_device.php">New Device</a>
       </div>
     </div>
   </nav>
@@ -45,7 +44,7 @@ require '../global.php';
     <?php
     $index = 1;
     // Attempt select query execution
-    $sql = "SELECT * FROM arduino_input";
+    $sql = "SELECT * FROM arduino_data";
     $result = mysqli_query($conn, $sql);
     ?>
     <table class="table table-bordered table-striped">
@@ -58,9 +57,9 @@ require '../global.php';
       <?php while ($row = mysqli_fetch_assoc($result)) : ?>
         <tr>
           <td><?= $index; ?></td>
-          <td><?= $row['batasan_ph']; ?></td>
-          <td><?= $row['batasan_ppm']; ?></td>
-          <td><?= $row['batasan_air']; ?></td>
+          <td><?= $row['sensor_ph']; ?></td>
+          <td><?= $row['sensor_ppm']; ?></td>
+          <td><?= $row['sensor_level_air']; ?></td>
         </tr>
       <?php $index++;
       endwhile; ?>

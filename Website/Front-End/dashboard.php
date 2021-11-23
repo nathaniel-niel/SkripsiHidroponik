@@ -46,6 +46,7 @@ if (isset($_POST["submit"])) {
         <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
         <a class="nav-link active" href="dashboard.php">Dashboard</a>
         <a class="nav-link" href="datalog.php">Data Log</a>
+        <a class="nav-link" href="new_device.php">New Device</a>
       </div>
     </div>
   </nav>
@@ -77,7 +78,6 @@ if (isset($_POST["submit"])) {
                 </div>
               </div>
 
-
               <button type="submit" name="submit">Save</button>
             </form>
           </div>
@@ -90,7 +90,7 @@ if (isset($_POST["submit"])) {
           INFORMASI
           <?php
           // Attempt select query execution
-          $sql = "SELECT * FROM arduino_input ORDER BY id DESC LIMIT 1";
+          $sql = "SELECT * FROM arduino_data ORDER BY id DESC LIMIT 1";
           $result = mysqli_query($conn, $sql);
           ?>
           <table class="table table-bordered table-striped">
@@ -101,12 +101,12 @@ if (isset($_POST["submit"])) {
             </tr>
             <?php while ($row = mysqli_fetch_assoc($result)) : ?>
               <tr>
-                <td><?= $row['batasan_ph']; ?></td>
-                <td><?= $row['batasan_ppm']; ?></td>
-                <td><?= $row['batasan_air']; ?></td>
+                <td><?= $row['sensor_ph']; ?></td>
+                <td><?= $row['sensor_ppm']; ?></td>
+                <td><?= $row['sensor_level_air']; ?></td>
               </tr>
-            <?php
-            endwhile; ?>
+            <?php endwhile; ?>
+
           </table>
 
         </div>
