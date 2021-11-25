@@ -34,7 +34,7 @@ require '../global.php';
         <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
         <a class="nav-link" href="dashboard.php">Dashboard</a>
         <a class="nav-link active" href="datalog.php">Data Log</a>
-        <a class="nav-link" href="devicecollection.html">Device Collection</a>
+        <a class="nav-link" href="devicecollection.php">Device Collection</a>
       </div>
     </div>
   </nav>

@@ -13,6 +13,7 @@ require '../Back-End/function.php';
     <link rel="stylesheet" href="style_datalog.css" />
 
     <title>Hello, world!</title>
+
 </head>
 
 <!-- BODY -->
