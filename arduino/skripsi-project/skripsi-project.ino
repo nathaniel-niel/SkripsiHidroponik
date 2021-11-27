@@ -6,13 +6,21 @@
 //#define waterLevelPin A0
 //#define sensorPower D7
 
-// MARK: - Data sensor variables
-int sensor_ph, sensor_ppm;
-String sensor_level_air;
+ // MARK: - Data sensor variables
+ int batasan_ph, batasan_ppm;
+ string batasan_air;
+
+ // MARK : - Temp variables
+ int waterLevelValue;
+
+ // MARK: - Pin Declaration
+ int waterLevelPin = A5;
 
 // MARK: - Connection sttufs
-const char* ssid = "Alberthome-ext";
-const char* pass = "basketball29";
+
+const char* ssid = "your wifi name";
+const char* pass = "your wifi passwod";
+
 
 // MARK: - Delay
 unsigned long lastTime = 0;
@@ -105,6 +113,7 @@ void sendData(){
     return  random (900,1500);
  }
 
+<<<<<<< HEAD
  String getWaterLevelSensorData(){
 //   waterLevelValue = analogRead(waterLevelPin);
 //
@@ -121,6 +130,25 @@ void sendData(){
 //     return "High";
 //   }
   return "empty";
+=======
+ string getWaterLevelSensorData(){
+   waterLevelValue = analogRead(waterLevelPin);
+
+   if (waterLevelValue <=100){
+     return "Empty";
+   }
+   else if (waterLevelValue > 100 && waterLevelValue <= 300){
+     return "Low";
+   }
+   else if (waterLevelValue > 300 && waterLevelValue <= 330){
+     return "Medium";
+   }
+   else if (waterLevelValue > 330){
+     return "High";
+   }
+
+  delay (1000);
+>>>>>>> 403f8b44acf406e73cfcad76b1023dbedb6e04d7
  }
 
 int sensorAir(){
