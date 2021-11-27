@@ -10,7 +10,7 @@ require '../global.php';
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous" />
-  <link rel="stylesheet" href="style_datalog.css" />
+  <link rel="stylesheet" href="style/style_datalog.css" />
 
   <title>Hello, world!</title>
 </head>
@@ -23,16 +23,15 @@ require '../global.php';
 
   <!-- bar navigasi -->
   <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="index.html">JNC</a>
+    <a class="navbar-brand" href="devicecollection.php">JNC</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
         <a class="nav-link" href="dashboard.php">Dashboard</a>
-        <a class="nav-link active" href="datalog.php">Data Log</a>
-        <a class="nav-link" href="new_device.php">New Device</a>
+        <a class="nav-link" href="devicecollection.php">Device Collection</a>
+
       </div>
     </div>
   </nav>

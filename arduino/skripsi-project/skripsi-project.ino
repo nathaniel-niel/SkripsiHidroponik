@@ -2,29 +2,35 @@
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
 
+// MARK: - Pin Declaration
+//#define waterLevelPin A0
+//#define sensorPower D7
 
- // MARK: - Data sensor variables
- int batasan_ph, batasan_ppm, batasan_air;
+// MARK: - Data sensor variables
+int sensor_ph, sensor_ppm;
+String sensor_level_air;
 
 // MARK: - Connection sttufs
-
-const char* ssid = "Kos dewi lt.1";
-const char* pass = "Lecuan777";
-
+const char* ssid = "Alberthome-ext";
+const char* pass = "basketball29";
 
 // MARK: - Delay
 unsigned long lastTime = 0;
-unsigned long timerDelay = 10000;
+unsigned long timerDelay = 1000;
 
 // MARK: - Object
+HTTPClient http;
+WiFiClient client;
 
- HTTPClient http;
- WiFiClient client;
-
- // MARK: - Initial Function from ARduino
+// MARK : - Temp variables
+ int waterLevelValue = 0;
  
+// MARK: - Initial Function from ARduino
 void setup() {
-  // put your setup code here, to run once:
+// put your setup code here, to run once:
+  pinMode(D7, INPUT);
+  digitalWrite(D7, HIGH);
+  
   Serial.begin(115200);
   Serial.println("");
   Serial.print("Connecting to ");
@@ -32,7 +38,6 @@ void setup() {
 
   // check is arduino connected to internet
   WiFi.begin(ssid,pass);
-  
 
   while (WiFi.status() != WL_CONNECTED){
     delay (600);
@@ -42,39 +47,30 @@ void setup() {
   Serial.println("Your arduino succesfully connected to internet...");
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
-
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-
   if (millis() - lastTime > timerDelay){
     if (WiFi.status() == WL_CONNECTED){
-
-      
-//      Serial.print("actual arduino run time: ");
-//      Serial.println(millis());
       sendData();
-
+      int ketinggian = sensorAir();
+      Serial.print("Ketinggian Air :" );
+      Serial.println(ketinggian);
     }
     lastTime = millis();
   }
 }
 
-
 // MARK: - Send data to server
-
 void sendData(){
-
   // Make random sensor input (dummy data)
-    batasan_ph = getpHsesorData();
-    batasan_ppm = getPpmSensorData();
-    batasan_air = getWaterLevelSensorData();
-
-  String data = (String)"?batasan_ph="+batasan_ph+"&batasan_ppm="+batasan_ppm+"&batasan_air="+batasan_air;
+  sensor_ph = getpHsesorData();
+  sensor_ppm = getPpmSensorData();
+  sensor_level_air = getWaterLevelSensorData();
    
-    // Start HTTP Connection
-  if (http.begin(client, "http://192.168.0.110/SkripsiHidroponik/arduino/phpfile/data.php?batasan_ph="+String(batasan_ph)+"&batasan_ppm="+String(batasan_ppm)+"&batasan_air="+String(batasan_air))){
+  // Start HTTP Connection
+  if (http.begin(client, "http://192.168.1.10/SkripsiHidroponik/arduino/phpfile/data.php?sensor_ph="+String(sensor_ph)+"&sensor_ppm="+String(sensor_ppm)+"&sensor_level_air="+String(sensor_level_air))){
     
     // start connection and send HTTP Header
     int httpCode = http.GET();
@@ -96,12 +92,9 @@ void sendData(){
   else{
    Serial.printf("HTTP  unable to connect\n") ;
   }
-  
-
  }
 
  // MARK: - Get data from sensor
-
  float getpHsesorData(){
   // dummy data
     return random(0.0,14.0);
@@ -112,7 +105,25 @@ void sendData(){
     return  random (900,1500);
  }
 
- int getWaterLevelSensorData(){
-  // dummy data
-    return random (50, 300);
+ String getWaterLevelSensorData(){
+//   waterLevelValue = analogRead(waterLevelPin);
+//
+//   if (waterLevelValue <=100){
+//     return "Empty";
+//   }
+//   else if (waterLevelValue > 100 && waterLevelValue <= 300){
+//     return "Low";
+//   }
+//   else if (waterLevelValue > 300 && waterLevelValue <= 330){
+//     return "Medium";
+//   }
+//   else if (waterLevelValue > 330){
+//     return "High";
+//   }
+  return "empty";
  }
+
+int sensorAir(){
+  waterLevelValue = digitalRead(D7);
+  return waterLevelValue;
+}

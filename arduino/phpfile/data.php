@@ -17,27 +17,22 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$batasan_ph = $_GET["batasan_ph"];
-$batasan_ppm = $_GET["batasan_ppm"];
-$batasan_air = $_GET["batasan_air"];
-$sql = "INSERT INTO arduino_input 
-VALUES (null, '.$batasan_ph.' , '.$batasan_ppm.', '.$batasan_air.')";
+$sensor_ph = $_GET["sensor_ph"];
+$sensor_ppm = $_GET["sensor_ppm"];
+$sensor_level_air = $_GET["sensor_level_air"];
+$sql = "INSERT INTO arduino_data
+VALUES (null, '.$sensor_ph.' , '.$sensor_ppm.', '.$sensor_level_air.')";
 
 
-if ($conn->query($sql) === TRUE  )  {
-  if ( $batasan_ph < $input_ph) {
-     
-      echo "tambahkan cairah ph up";
-    }
-    else{
-      echo "tambahkan cairan ph down";
-    }
- 
+if ($conn->query($sql) === TRUE) {
+  if ($sensor_ph < $input_ph) {
+
+    echo "tambahkan cairah ph up";
+  } else {
+    echo "tambahkan cairan ph down";
+  }
 } else {
   echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
 $conn->close();
-
-
-?>

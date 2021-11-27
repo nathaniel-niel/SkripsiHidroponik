@@ -5,8 +5,8 @@ function savedData($data)
 {
     global $conn;
     // form
-    $batasan_ph = htmlspecialchars($data['batasan_ph']);
-    $batasan_ppm = htmlspecialchars($data['batasan_ppm']);
+    $batasan_ph = $data['batasan_ph'];
+    $batasan_ppm = $data['batasan_ppm'];
 
     //set date
     date_default_timezone_set('Asia/Jakarta');
@@ -23,10 +23,10 @@ function savedNewDevice($data)
 {
     global $conn;
     // form
-    $device_id = htmlspecialchars($data['device_id']);
-    $device_name = htmlspecialchars($data['device_name']);
+    $device_id = $data['device_id'];
+    $device_name = $data['device_name'];
 
-    $sql = "INSERT INTO device_collection VALUES ('$device_id' , '$device_name')";
+    $sql = "INSERT INTO device_collection VALUES ('', '$device_id' , '$device_name')";
 
     mysqli_query($conn, $sql);
 
