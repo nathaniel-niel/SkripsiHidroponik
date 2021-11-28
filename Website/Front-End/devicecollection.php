@@ -22,14 +22,13 @@ require '../Back-End/function.php';
 
   <!-- bar navigasi -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-    <a class="navbar-brand" href="index.html">JNC</a>
+    <a class="navbar-brand" href="deviceCollection.php">JNC</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" href="devicecollection.php">Device Collection</a>
-        <a class="nav-link" href="dashboard.php">Detail Device</a>
+        <a class="nav-link active" href="deviceCollection.php">Device Collection</a>
       </div>
     </div>
   </nav>
@@ -89,7 +88,7 @@ require '../Back-End/function.php';
 
     <?php
     // Attempt select query execution
-    $sql = "SELECT device_name FROM device_collection";
+    $sql = "SELECT device_name FROM device_collection ORDER BY date";
     $result = mysqli_query($conn, $sql);
     ?>
 
@@ -97,11 +96,11 @@ require '../Back-End/function.php';
     <?php
     while ($row = mysqli_fetch_assoc($result)) : ?>
 
-      <div class="jumbotron jumbotron-fluid">
+      <a href="deviceDetail.php?device_name=<?= $row['device_name']; ?>">
         <div class="container">
-          <th id="device-name-title"><?= $row['device_name']; ?></th>
+          <div id="device-name-title"><?= $row['device_name']; ?></div>
         </div>
-      </div>
+      </a>
 
     <?php
     endwhile;

@@ -1,8 +1,8 @@
 <?php
 require '../Back-End/function.php';
 
-if (isset($_POST["submit"])) {
-  if (savedData($_POST) > 0) {
+if (isset($_POST["submitBatasan"])) {
+  if (savedBatasan($_POST) > 0) {
     echo "
     <script>
     alert('Berhasil Tersimpan!');
@@ -37,14 +37,14 @@ if (isset($_POST["submit"])) {
 
   <!-- bar navigasi -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-    <a class="navbar-brand" href="devicecollection.php">JNC</a>
+    <a class="navbar-brand" href="deviceCollection.php">JNC</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" href="devicecollection.php">Device Collection</a>
-        <a class="nav-link active" href="dashboard.php">Detail Device</a>
+        <a class="nav-link" href="deviceCollection.php">Device Collection</a>
+        <a class="nav-link active" href="deviceDetail.php">Detail Device</a>
       </div>
     </div>
   </nav>
@@ -52,7 +52,7 @@ if (isset($_POST["submit"])) {
   <!-- Input Form & Informasi Layout -->
   <div class="container" id="main-layout">
     <!-- Title -->
-    <h1 id="judul">*Device Name*</h1>
+    <h1 id="judul"><?= $_GET["device_name"]; ?></h1>
 
     <!-- Layout Input & Limit -->
     <div class="row" style="margin-top: 40px;">
@@ -79,7 +79,7 @@ if (isset($_POST["submit"])) {
                 </tr>
                 <tr class="bottomright">
                   <!-- Button Submit -->
-                  <td id="save-btn"><button type="submit" name="submit">Save</button></td>
+                  <td id="save-btn"><button type="submit" name="submitBatasan">Save</button></td>
                 </tr>
               </form>
             </table>
