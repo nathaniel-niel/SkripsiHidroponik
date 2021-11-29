@@ -26,9 +26,9 @@ if (isset($_POST["submitBatasan"])) {
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous" />
-  <link rel="stylesheet" type="text/css" href="style/style_dashboard.css" />
+  <link rel="stylesheet" type="text/css" href="style/style_deviceDetail.css" />
 
-  <title>DASHBOARD</title>
+  <title>DEVICE DETAIL</title>
 </head>
 
 <body>
@@ -66,7 +66,13 @@ if (isset($_POST["submitBatasan"])) {
             <table id="">
               <form action="" method="post">
 
-                <!-- Batasan pH -->
+                <!-- Device ID to db -->
+                <?php
+                $dev_id = $_GET["device_id"];
+                ?>
+                <td><input type="hidden" step=".01" id="dev" name="dev" value="<?= $dev_id ?>" required></td>
+
+                <!-- Batasan -->
                 <tr>
                   <td><label for="batasan_ph" class="h5">pH Limit</label></td>
                   <td>:</td>
@@ -84,8 +90,6 @@ if (isset($_POST["submitBatasan"])) {
               </form>
             </table>
           </div>
-
-
         </div>
       </div>
 
@@ -97,13 +101,13 @@ if (isset($_POST["submitBatasan"])) {
 
             <?php
             // Attempt select query execution
-            $sql = "SELECT sensor_ph FROM arduino_data ORDER BY id DESC LIMIT 1";
+            $sql = "SELECT batasan_ph FROM batasan WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
             $result = mysqli_query($conn, $sql);
             ?>
 
             <?php while ($row = mysqli_fetch_assoc($result)) : ?>
               <div id="limit-value">
-                <td><?= $row['sensor_ph']; ?></td>
+                <td><?= $row['batasan_ph']; ?></td>
               </div>
             <?php
             endwhile; ?>
@@ -112,13 +116,13 @@ if (isset($_POST["submitBatasan"])) {
 
             <?php
             // Attempt select query execution
-            $sql = "SELECT sensor_ppm FROM arduino_data ORDER BY id DESC LIMIT 1";
+            $sql = "SELECT batasan_ppm FROM batasan WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
             $result = mysqli_query($conn, $sql);
             ?>
 
             <?php while ($row = mysqli_fetch_assoc($result)) : ?>
               <div id="limit-value">
-                <td><?= $row['sensor_ppm']; ?></td>
+                <td><?= $row['batasan_ppm']; ?></td>
               </div>
             <?php
             endwhile; ?>
@@ -132,58 +136,73 @@ if (isset($_POST["submitBatasan"])) {
       <div class="col">
         <?php
         // Attempt select query execution
-        $sql = "SELECT sensor_ph FROM arduino_data ORDER BY id DESC LIMIT 1";
+        $sql = "SELECT sensor_ph FROM arduino_data WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
         $result = mysqli_query($conn, $sql);
         ?>
         <!-- Kolom Data pH Rate -->
         <div class="jumbotron jumbotron-fluid">
           <h3>pH Rate</h3>
           <?php $row = mysqli_fetch_assoc($result)  ?>
-          <div id="info-value">
-            <td><?= $row['sensor_ph']; ?></td>
-          </div>
+          <?php if (!$row) :
+            echo "<div id='info-value'> 0 </div>";
+          else : ?>
+            <div id="info-value">
+              <td><?= $row['sensor_ph']; ?></td>
+            </div>
+          <?php endif; ?>
         </div>
       </div>
 
       <div class="col">
         <?php
         // Attempt select query execution
-        $sql = "SELECT sensor_ppm FROM arduino_data ORDER BY id DESC LIMIT 1";
+        $sql = "SELECT sensor_ppm FROM arduino_data WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
         $result = mysqli_query($conn, $sql);
         ?>
         <!-- Kolom Data PPM Rate -->
         <div class="jumbotron jumbotron-fluid">
           <h3>PPM Rate</h3>
           <?php $row = mysqli_fetch_assoc($result) ?>
-          <div id="info-value">
-            <td><?= $row['sensor_ppm']; ?></td>
-          </div>
+          <?php if (!$row) :
+            echo "<div id='info-value'> 0 </div>";
+          else : ?>
+            <div id="info-value">
+              <td><?= $row['sensor_ppm']; ?></td>
+            </div>
+          <?php endif; ?>
         </div>
       </div>
       <div class="col">
         <?php
         // Attempt select query execution
-        $sql = "SELECT sensor_level_air FROM arduino_data ORDER BY id DESC LIMIT 1";
+        $sql = "SELECT sensor_level_air FROM arduino_data WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
         $result = mysqli_query($conn, $sql);
         ?>
         <!-- Kolom Data Water Level -->
         <div class="jumbotron jumbotron-fluid">
           <h3>Water Level</h3>
           <?php $row = mysqli_fetch_assoc($result) ?>
-          <?php if ($row['sensor_level_air'] == "HIGH") { ?>
-            <div id="info-value" style="color: green;">
-              <td><?= $row['sensor_level_air']; ?></td>
-            </div>
-          <?php } else if ($row['sensor_level_air'] == "MEDIUM") { ?>
-            <div id="info-value" style="color: orange;">
-              <td><?= $row['sensor_level_air']; ?></td>
-            </div>
-          <?php } else if ($row['sensor_level_air'] == "LOW") { ?>
-            <div id="info-value" style="color: red;">
-              <td><?= $row['sensor_level_air']; ?></td>
-            </div>
-          <?php } ?>
-
+          <?php if (!$row) :
+            echo "<div id='info-value'> EMPTY </div>";
+          else : ?>
+            <?php if ($row['sensor_level_air'] == "HIGH") { ?>
+              <div id="info-value" style="color: green;">
+                <td><?= $row['sensor_level_air']; ?></td>
+              </div>
+            <?php } else if ($row['sensor_level_air'] == "MEDIUM") { ?>
+              <div id="info-value" style="color: orange;">
+                <td><?= $row['sensor_level_air']; ?></td>
+              </div>
+            <?php } else if ($row['sensor_level_air'] == "LOW") { ?>
+              <div id="info-value" style="color: red;">
+                <td><?= $row['sensor_level_air']; ?></td>
+              </div>
+            <?php } else if ($row['sensor_level_air'] == "EMPTY") { ?>
+              <div id="info-value" style="color: black;">
+                <td><?= $row['sensor_level_air']; ?></td>
+              </div>
+            <?php } ?>
+          <?php endif; ?>
         </div>
       </div>
     </div>
@@ -195,13 +214,14 @@ if (isset($_POST["submitBatasan"])) {
       <?php
       $index = 1;
       // Attempt select query execution
-      $sql = "SELECT * FROM arduino_data ORDER BY id DESC LIMIT 5";
+      $sql = "SELECT * FROM arduino_data WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 5";
       $result = mysqli_query($conn, $sql);
       ?>
 
       <table class="table table-bordered table-striped">
         <tr>
           <th id="t-head">No</th>
+          <th id="t-head">Date</th>
           <th id="t-head">pH</th>
           <th id="t-head">PPM</th>
           <th id="t-head">Water Level</th>
@@ -209,6 +229,7 @@ if (isset($_POST["submitBatasan"])) {
         <?php while ($row = mysqli_fetch_assoc($result)) : ?>
           <tr>
             <td><?= $index; ?></td>
+            <td><?= $row['date']; ?></td>
             <td><?= $row['sensor_ph']; ?></td>
             <td><?= $row['sensor_ppm']; ?></td>
             <td><?= $row['sensor_level_air']; ?></td>

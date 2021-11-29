@@ -10,7 +10,7 @@ require '../Back-End/function.php';
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous" />
-  <link rel="stylesheet" href="style/style_devicecollection.css" />
+  <link rel="stylesheet" href="style/style_deviceCollection.css" />
 
   <title>Hello Bang!</title>
 
@@ -88,7 +88,7 @@ require '../Back-End/function.php';
 
     <?php
     // Attempt select query execution
-    $sql = "SELECT device_name FROM device_collection ORDER BY date";
+    $sql = "SELECT * FROM device_collection ORDER BY date";
     $result = mysqli_query($conn, $sql);
     ?>
 
@@ -96,7 +96,7 @@ require '../Back-End/function.php';
     <?php
     while ($row = mysqli_fetch_assoc($result)) : ?>
 
-      <a href="deviceDetail.php?device_name=<?= $row['device_name']; ?>">
+      <a href="deviceDetail.php?device_id=<?= $row['device_id']; ?>&device_name=<?= $row['device_name']; ?>">
         <div class="container">
           <div id="device-name-title"><?= $row['device_name']; ?></div>
         </div>

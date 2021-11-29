@@ -5,14 +5,17 @@ function savedBatasan($data)
 {
     global $conn;
     // form
+    $device_id = $data['dev'];
     $batasan_ph = $data['batasan_ph'];
     $batasan_ppm = $data['batasan_ppm'];
+
+    echo "<script>console.log('Debug Objects: " . $device_id . "' );</script>";
 
     //set date
     date_default_timezone_set('Asia/Jakarta');
     $date = date("d/m/Y H:i:s");
 
-    $sql = "INSERT INTO batasan VALUES ('', '$batasan_ph' , '$batasan_ppm', '$date')";
+    $sql = "INSERT INTO batasan VALUES ('$device_id', '$batasan_ph' , '$batasan_ppm', '$date')";
 
     mysqli_query($conn, $sql);
 
