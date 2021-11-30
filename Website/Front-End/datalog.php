@@ -2,8 +2,6 @@
 require '../global.php';
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +10,7 @@ require '../global.php';
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous" />
-  <link rel="stylesheet" href="style_datalog.css" />
+  <link rel="stylesheet" href="style/style_datalog.css" />
 
   <title>Hello, world!</title>
 </head>
@@ -25,16 +23,20 @@ require '../global.php';
 
   <!-- bar navigasi -->
   <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="index.html">JNC</a>
+    <a class="navbar-brand" href="devicecollection.php">JNC</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
         <a class="nav-link" href="dashboard.php">Dashboard</a>
+<<<<<<< HEAD
         <a class="nav-link active" href="datalog.php">Data Log</a>
         <a class="nav-link" href="devicecollection.php">Device Collection</a>
+=======
+        <a class="nav-link" href="devicecollection.php">Device Collection</a>
+
+>>>>>>> a4fb85ee09a648d0ccc70b1695dec007ad9af2f2
       </div>
     </div>
   </nav>
@@ -46,7 +48,7 @@ require '../global.php';
     <?php
     $index = 1;
     // Attempt select query execution
-    $sql = "SELECT * FROM arduino_input";
+    $sql = "SELECT * FROM arduino_data";
     $result = mysqli_query($conn, $sql);
     ?>
     <table class="table table-bordered table-striped">
@@ -59,9 +61,9 @@ require '../global.php';
       <?php while ($row = mysqli_fetch_assoc($result)) : ?>
         <tr>
           <td><?= $index; ?></td>
-          <td><?= $row['batasan_ph']; ?></td>
-          <td><?= $row['batasan_ppm']; ?></td>
-          <td><?= $row['batasan_air']; ?></td>
+          <td><?= $row['sensor_ph']; ?></td>
+          <td><?= $row['sensor_ppm']; ?></td>
+          <td><?= $row['sensor_level_air']; ?></td>
         </tr>
       <?php $index++;
       endwhile; ?>
