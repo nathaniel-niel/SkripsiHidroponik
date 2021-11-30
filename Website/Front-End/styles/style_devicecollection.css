@@ -1,0 +1,39 @@
+.navbar {
+  background-color: rgb(195, 201, 201);
+}
+
+.navbar-brand {
+  font-weight: bolder;
+  font-size: 35px;
+}
+
+#main-layout {
+  margin-top: 120px;
+}
+
+#button-new-device {
+  float: right;
+  height: 45px;
+  width: 150px;
+}
+
+#button-save-new-device {
+  width: 100px;
+}
+
+#device-name-title {
+  text-align: center;
+}
+
+.table-striped {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#header {
+  text-align: center;
+}
+
+#content {
+  text-align: center;
+}
