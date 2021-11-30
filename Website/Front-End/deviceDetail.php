@@ -74,18 +74,16 @@ if (isset($_POST["submitBatasan"])) {
 
                 <!-- Batasan -->
                 <tr>
-                  <td><label for="batasan_ph" class="h5">pH Limit</label></td>
-                  <td>:</td>
-                  <td><input type="number" step=".01" id="batasan_ph" name="batasan_ph" value="" required></td>
+                  <td id="col-label"><label for="batasan_ph" class="h5" style="margin-left: 30px; font-size: 25px">pH Limit</label></td>
+                  <td id="col-input"><input type="number" step=".01" id="batasan_ph" name="batasan_ph" value="" required style="border-radius: 10px; height: 40px;"></td>
                 </tr>
                 <tr>
-                  <td><label for="batasan_ppm" class="h5">PPM Limit</label></td>
-                  <td>:</td>
-                  <td><input type="number" id="batasan_ppm" name="batasan_ppm" value="" required /></td>
+                  <td id=" col-label"><label for="batasan_ppm" class="h5" style="margin-left: 30px; font-size: 25px">PPM Limit</label></td>
+                  <td id="col-input"><input type="number" id="batasan_ppm" name="batasan_ppm" value="" required style="border-radius: 10px; height: 40px;" /></td>
                 </tr>
                 <tr class="bottomright">
                   <!-- Button Submit -->
-                  <td id="save-btn"><button type="submit" name="submitBatasan">Save</button></td>
+                  <td><button type="submit" name="submitBatasan" id="save-btn">Save</button></td>
                 </tr>
               </form>
             </table>

@@ -51,7 +51,7 @@ require '../Back-End/function.php';
 
     <!-- Popup/Model Add New Device -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 600px;">
         <div class="modal-content">
           <div class="modal-header">
             <!-- Title -->
@@ -60,23 +60,21 @@ require '../Back-End/function.php';
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" style="height: 250px;">
             <!-- Form -->
             <form action="" method="post">
               <table>
                 <tr>
-                  <td><label for="device_id" class="h5">DEVICE ID </label></td>
-                  <td>:</td>
-                  <td><input type="text" id="device_id" name="device_id" value="" required></td>
+                  <td id="col-label"><label for="device_id" class="h5">Device ID </label></td>
+                  <td id="col-input"><input placeholder="Max. 10 characters" type="text" id="device_id" name="device_id" value="" required style="width: 90%;"></td>
                 </tr>
                 <br>
                 <tr>
-                  <td><label for="device_name" class="h5">DEVICE NAME </label></td>
-                  <td>:</td>
-                  <td> <input type="text" id="device_name" name="device_name" value="" required /></td>
+                  <td id="col-label"><label for="device_name" class="h5">Device Name </label></td>
+                  <td id="col-input"> <input placeholder="Max. 10 characters" type="text" id="device_name" name="device_name" value="" required style="width: 90%;" /></td>
                 </tr>
-                <tr>
-                  <td><button type="submitNewDevice" name="submitNewDevice">Save</button></td>
+                <tr id="bottomright">
+                  <td><button type="submitNewDevice" name="submitNewDevice" class="btn btn-primary" id="btn-save">Save</button></td>
                 </tr>
               </table>
             </form>
@@ -92,19 +90,23 @@ require '../Back-End/function.php';
     $result = mysqli_query($conn, $sql);
     ?>
 
-    <!-- Jumbotron Devices -->
-    <?php
-    while ($row = mysqli_fetch_assoc($result)) : ?>
+    <!-- Jumbotron Devices Collection-->
+    <div class="container" id="layout-jumbot">
+      <?php
+      while ($row = mysqli_fetch_assoc($result)) : ?>
 
-      <a href="deviceDetail.php?device_id=<?= $row['device_id']; ?>&device_name=<?= $row['device_name']; ?>">
-        <div class="container">
-          <div id="device-name-title"><?= $row['device_name']; ?></div>
-        </div>
-      </a>
+        <a href="deviceDetail.php?device_id=<?= $row['device_id']; ?>&device_name=<?= $row['device_name']; ?>" style="text-decoration: none;">
+          <div class="jumbotron" id="jumbot-divcol">
+            <div id="device-name-title"><?= $row['device_name']; ?></div>
+          </div>
+        </a>
 
-    <?php
-    endwhile;
-    ?>
+
+      <?php
+      endwhile;
+      ?>
+    </div>
+
 
     <!-- Notifikasi -->
     <h2>Notification</h2>

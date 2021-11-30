@@ -25,6 +25,67 @@
   text-align: center;
 }
 
+#layout-jumbot {
+  margin-top: 20px;
+}
+
+#device-name-title {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: black;
+  font-size: 25px;
+}
+
+#layout-jumbot {
+  margin-top: 30px;
+}
+
+#jumbot-divcol {
+  margin: auto;
+  margin-bottom: 20px;
+  padding: auto;
+  height: 180px;
+  width: 250px;
+  position: relative;
+}
+
+#jumbot-divcol:hover {
+  padding: auto;
+  height: 180px;
+  width: 250px;
+  background-color: rgb(190, 192, 190);
+}
+
+#col-label {
+  text-align: left;
+  width: 150px;
+  height: 50px;
+  padding-bottom: 40px;
+  padding-left: 20px;
+}
+
+#col-input {
+  width: 400px;
+  height: 50px;
+  padding-bottom: 40px;
+}
+
+#bottomright {
+  position: absolute;
+  bottom: 10px;
+  right: 16px;
+  font-size: 18px;
+}
+
+#btn-save {
+  width: 120px;
+  font-size: 20px;
+}
+
 .table-striped {
   margin-top: 30px;
   margin-bottom: 30px;
@@ -37,3 +98,7 @@
 #content {
   text-align: center;
 }
+
+/* td {
+  border: 1px solid black;
+} */
