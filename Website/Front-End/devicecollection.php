@@ -10,11 +10,7 @@ require '../Back-End/function.php';
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous" />
-<<<<<<< HEAD
-  <link rel="stylesheet" href="style_devicecollection.css" />
-=======
   <link rel="stylesheet" href="style/style_deviceCollection.css" />
->>>>>>> a4fb85ee09a648d0ccc70b1695dec007ad9af2f2
 
   <title>Hello Bang!</title>
 
@@ -26,24 +22,13 @@ require '../Back-End/function.php';
 
   <!-- bar navigasi -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-<<<<<<< HEAD
-    <a class="navbar-brand" href="index.html">JNC</a>
-=======
     <a class="navbar-brand" href="deviceCollection.php">JNC</a>
->>>>>>> a4fb85ee09a648d0ccc70b1695dec007ad9af2f2
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-<<<<<<< HEAD
-        <a class="nav-link" href="new_device.php">Home <span class="sr-only">(current)</span></a>
-        <a class="nav-link" href="dashboard.php">Dashboard</a>
-        <a class="nav-link" href="datalog.php">Data Log</a>
-        <a class="nav-link active" href="devicecollection.php">Device Collection</a>
-=======
         <a class="nav-link active" href="deviceCollection.php">Device Collection</a>
->>>>>>> a4fb85ee09a648d0ccc70b1695dec007ad9af2f2
       </div>
     </div>
   </nav>
@@ -103,11 +88,7 @@ require '../Back-End/function.php';
 
     <?php
     // Attempt select query execution
-<<<<<<< HEAD
-    $sql = "SELECT device_name FROM device_collection";
-=======
     $sql = "SELECT * FROM device_collection ORDER BY date";
->>>>>>> a4fb85ee09a648d0ccc70b1695dec007ad9af2f2
     $result = mysqli_query($conn, $sql);
     ?>
 
@@ -115,35 +96,16 @@ require '../Back-End/function.php';
     <?php
     while ($row = mysqli_fetch_assoc($result)) : ?>
 
-<<<<<<< HEAD
-      <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-          <th id="device-name-title"><?= $row['device_name']; ?></th>
-        </div>
-      </div>
-=======
       <a href="deviceDetail.php?device_id=<?= $row['device_id']; ?>&device_name=<?= $row['device_name']; ?>">
         <div class="container">
           <div id="device-name-title"><?= $row['device_name']; ?></div>
         </div>
       </a>
->>>>>>> a4fb85ee09a648d0ccc70b1695dec007ad9af2f2
 
     <?php
     endwhile;
     ?>
 
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-=======
->>>>>>> a4fb85ee09a648d0ccc70b1695dec007ad9af2f2
     <!-- Notifikasi -->
     <h2>Notification</h2>
 
