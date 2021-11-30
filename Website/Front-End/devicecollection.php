@@ -109,61 +109,61 @@ require '../Back-End/function.php';
     <!-- Notifikasi -->
     <h2>Notification</h2>
 
+    <?php
+    $sql = "SELECT device_collection.device_name, arduino_data.sensor_level_air, arduino_data.date FROM device_collection 
+              LEFT JOIN arduino_data 
+              ON device_collection.device_id=arduino_data.device_id ORDER BY device_collection.date DESC";
+    $result = mysqli_query($conn, $sql);
+    ?>
+
     <table class="table table-bordered table-striped">
       <tr>
         <th id="header">Device Name</th>
         <th id="header">Notification</th>
         <th id="header">Date</th>
       </tr>
-      <tr>
-        <td id="content">Device A</td>
-        <td id="content">
-          Ketinggian air sudah rendah, mohon isi kembali wadah air
-        </td>
-        <td id="content">19/10/2021 10.23</td>
-      </tr>
-      <tr>
-        <td id="content">Device B</td>
-        <td id="content">
-          Ketinggian air sudah rendah, mohon isi kembali wadah air
-        </td>
-        <td id="content">19/10/2021 10.23</td>
-      </tr>
-      <tr>
-        <td id="content">Device B</td>
-        <td id="content">
-          Ketinggian air sudah rendah, mohon isi kembali wadah air
-        </td>
-        <td id="content">19/10/2021 10.23</td>
-      </tr>
-      <tr>
-        <td id="content">Device A</td>
-        <td id="content">
-          Ketinggian air sudah rendah, mohon isi kembali wadah air
-        </td>
-        <td id="content">19/10/2021 10.23</td>
-      </tr>
-    </table>
 
+      <?php while ($row = mysqli_fetch_assoc($result)) :
+        if ($row) :
+      ?>
+          <tr>
+            <?php if ($row['sensor_level_air'] == "MED") { ?>
+              <td><?= $row['device_name']; ?></td>
+              <td>
+                Ketinggian air sudah berkurang, mohon diperhatikan
+              </td>
+              <td><?= $row['date']; ?></td>
+            <?php } else if ($row['sensor_level_air'] == "LOW") { ?>
+              <td><?= $row['device_name']; ?></td>
+              <td>
+                Ketinggian air sudah rendah, mohon untuk tambahkan air
+              </td>
+              <td><?= $row['date']; ?></td>
+            <?php } ?>
+            </td>
+          </tr>
+        <?php endif; ?>
+      <?php endwhile; ?>
+    </table>
   </div>
 </body>
 
 </html>
 
 <?php
-if (isset($_POST["submitNewDevice"])) {
-  if (savedNewDevice($_POST) > 0) {
+if (isset($_POST["submitNewDevice"])) :
+  if (savedNewDevice($_POST) > 0) :
     echo "
       <script>
       alert('Device Berhasil Ditambahkan!');
       </script>
       ";
-  } else {
+  else :
     echo "
       <script>
       alert('Device Gagal Ditambahkan!');
       </script>
       ";
-  }
-}
+  endif;
+endif;
 ?>
