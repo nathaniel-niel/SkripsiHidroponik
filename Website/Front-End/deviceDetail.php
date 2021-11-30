@@ -49,6 +49,11 @@ if (isset($_POST["submitBatasan"])) {
     </div>
   </nav>
 
+  <!-- GET Device ID From url -->
+  <?php
+  $dev_id = $_GET["device_id"];
+  ?>
+
   <!-- Input Form & Informasi Layout -->
   <div class="container" id="main-layout">
     <!-- Title -->
@@ -65,11 +70,6 @@ if (isset($_POST["submitBatasan"])) {
             <!-- Input Form -->
             <table id="">
               <form action="" method="post">
-
-                <!-- Device ID to db -->
-                <?php
-                $dev_id = $_GET["device_id"];
-                ?>
                 <td><input type="hidden" step=".01" id="dev" name="dev" value="<?= $dev_id ?>" required></td>
 
                 <!-- Batasan -->
@@ -97,36 +97,42 @@ if (isset($_POST["submitBatasan"])) {
       <div class="col-sm-4">
         <div class="jumbotron jumbotron-fluid" style="height: 300px;">
           <div class="container">
-            <h3 style="text-align: center;">pH Limit</h3>
 
+            <!-- pH limit -->
+            <h3 style="text-align: center;">pH Limit</h3>
             <?php
-            // Attempt select query execution
             $sql = "SELECT batasan_ph FROM batasan WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
             $result = mysqli_query($conn, $sql);
             ?>
 
-            <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+            <?php $row = mysqli_fetch_assoc($result)  ?>
+            <?php if (!$row) : ?>
+              <div id='limit-value'>
+                <td> 0 </td>
+              </div>
+            <?php else : ?>
               <div id="limit-value">
                 <td><?= $row['batasan_ph']; ?></td>
               </div>
-            <?php
-            endwhile; ?>
+            <?php endif; ?>
 
+            <!-- PPM Limit -->
             <h3 style="text-align: center;">PPM Limit</h3>
-
             <?php
-            // Attempt select query execution
             $sql = "SELECT batasan_ppm FROM batasan WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
             $result = mysqli_query($conn, $sql);
             ?>
 
-            <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+            <?php $row = mysqli_fetch_assoc($result) ?>
+            <?php if (!$row) : ?>
+              <div id='limit-value'>
+                <td> 0 </td>
+              </div>
+            <?php else : ?>
               <div id="limit-value">
                 <td><?= $row['batasan_ppm']; ?></td>
               </div>
-            <?php
-            endwhile; ?>
-
+            <?php endif; ?>
           </div>
         </div>
       </div>
@@ -172,6 +178,7 @@ if (isset($_POST["submitBatasan"])) {
           <?php endif; ?>
         </div>
       </div>
+
       <div class="col">
         <?php
         // Attempt select query execution
@@ -189,7 +196,7 @@ if (isset($_POST["submitBatasan"])) {
               <div id="info-value" style="color: green;">
                 <td><?= $row['sensor_level_air']; ?></td>
               </div>
-            <?php } else if ($row['sensor_level_air'] == "MEDIUM") { ?>
+            <?php } else if ($row['sensor_level_air'] == "MED") { ?>
               <div id="info-value" style="color: orange;">
                 <td><?= $row['sensor_level_air']; ?></td>
               </div>
