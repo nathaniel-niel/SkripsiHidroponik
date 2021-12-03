@@ -100,7 +100,7 @@ endif;
 
     <?php
     // Attempt select query execution
-    $sql = "SELECT * FROM device_collection ORDER BY date ASC";
+    $sql = "SELECT * FROM device_collection ORDER BY date DESC";
     $result = mysqli_query($conn, $sql);
     ?>
 

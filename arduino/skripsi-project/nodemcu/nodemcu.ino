@@ -25,19 +25,19 @@ void setup() {
   Serial.println(ssid);
 
   // check is arduino connected to internet
-//  WiFi.mode(WIFI_STA);
-//  WiFi.begin(ssid,pass);
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid,pass);
 
-//  while (WiFi.status() != WL_CONNECTED){
-//    delay (600);
-//    Serial.print(".");
-//  }
-//  Serial.println("");
-//  Serial.println("Your arduino succesfully connected to internet...");
-//  Serial.print("IP address: ");
-//  Serial.println(WiFi.localIP());
-//  WiFi.setAutoReconnect(true);
-//  WiFi.persistent(true);
+  while (WiFi.status() != WL_CONNECTED){
+    delay (600);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.println("Your arduino succesfully connected to internet...");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+  WiFi.setAutoReconnect(true);
+  WiFi.persistent(true);
   
   
   
@@ -46,7 +46,7 @@ void setup() {
 void loop() {
    String data = "";
    if (millis() - lastTime > timerDelay){
-//      if (WiFi.status() == WL_CONNECTED){
+      if (WiFi.status() == WL_CONNECTED){
          
         // add functio to send data here
         while (Serial.available()>0){
@@ -60,7 +60,7 @@ void loop() {
          Serial.println("data dari sensor: "+ data);
         
 
-//     }
+     }
      lastTime = millis();
   }
 
@@ -70,7 +70,7 @@ void sendData(String data){
   
 
 //   Start HTTP Connection
-  if (http.begin(client, "http://192.168.64.2/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
+  if (http.begin(client, "http://172.20.10.9/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
 
     // Start connection and send HTTP header
     int httpCode = http.GET();
