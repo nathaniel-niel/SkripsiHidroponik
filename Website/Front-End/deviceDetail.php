@@ -1,21 +1,21 @@
 <?php
 require '../Back-End/function.php';
 
-if (isset($_POST["submitBatasan"])) {
-  if (savedBatasan($_POST) > 0) {
+if (isset($_POST["submitBatasan"])) :
+  if (savedBatasan($_POST) > 0) :
     echo "
     <script>
-    alert('Berhasil Tersimpan!');
+    alert('Batasan Berhasil Tersimpan!');
     </script>
     ";
-  } else {
+  else :
     echo "
     <script>
-    alert('Gagal Tersimpan!');
+    alert('Batasan Gagal Tersimpan!');
     </script>
     ";
-  }
-}
+  endif;
+endif;
 ?>
 
 <!DOCTYPE html>
@@ -37,13 +37,13 @@ if (isset($_POST["submitBatasan"])) {
 
   <!-- bar navigasi -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-    <a class="navbar-brand" href="deviceCollection.php">JNC</a>
+    <a class="navbar-brand" href="index.php">JNC</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" href="deviceCollection.php">Device Collection</a>
+        <a class="nav-link" href="index.php">Device Collection</a>
         <a class="nav-link active" href="deviceDetail.php">Detail Device</a>
       </div>
     </div>
@@ -82,6 +82,7 @@ if (isset($_POST["submitBatasan"])) {
                   <td id="col-input"><input type="number" id="batasan_ppm" name="batasan_ppm" value="" required style="border-radius: 10px; height: 40px;" /></td>
                 </tr>
                 <tr class="bottomright">
+
                   <!-- Button Submit -->
                   <td><button type="submit" name="submitBatasan" id="save-btn">Save</button></td>
                 </tr>
