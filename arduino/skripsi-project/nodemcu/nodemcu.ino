@@ -3,12 +3,12 @@
 #include <WiFiClient.h>
 
 // Connection stuffs
-const char* ssid = "Niel's Iphone";
-const char* pass = "niel1234";
+const char* ssid = "Hello World";
+const char* pass = "88888888";
 
 // Delay Configuration
 unsigned long lastTime = 0;
-unsigned long timerDelay = 1000;
+unsigned long timerDelay = 10000;
 
 // Object Declaration
 HTTPClient http;
@@ -33,14 +33,11 @@ void setup() {
     Serial.print(".");
   }
   Serial.println("");
-  Serial.println("Your arduino succesfully connected to internet...");
+  Serial.println("Succesfully connected to internet...");
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
   WiFi.setAutoReconnect(true);
   WiFi.persistent(true);
-  
-  
-  
 }
 
 void loop() {
@@ -50,27 +47,21 @@ void loop() {
          
         // add functio to send data here
         while (Serial.available()>0){
-         data+= char(Serial.read());
-         
-        
-          
-         
+          data+= char(Serial.read());
         }
+        // trim data for erase the spacing
         data.trim();
-         Serial.println("data dari sensor: "+ data);
-        
-
+        // send data to database
+        sendData(data);
      }
      lastTime = millis();
   }
-
 }
 
 void sendData(String data){
   
-
 //   Start HTTP Connection
-  if (http.begin(client, "http://172.20.10.9/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
+  if (http.begin(client, "http://192.168.1.13/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
 
     // Start connection and send HTTP header
     int httpCode = http.GET();
@@ -82,15 +73,12 @@ void sendData(String data){
         String payload = http.getString();
         Serial.println(payload);
       }
-    }
-    else{
+    }else{
       Serial.printf("HTTP connection failed, error: %s\n", http.errorToString);
     }
     http.end();
-  }
-  else{
+  }else{
    Serial.printf("HTTP  unable to connect\n") ;
   }  
-    
  }
     
