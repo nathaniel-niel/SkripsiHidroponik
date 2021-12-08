@@ -4,9 +4,7 @@ $username = "root";
 $password = "";
 $dbname = "skripsi";
 
-// batasan by user input [dummy]
-$input_ph = 9;
-$input_ppm = 1000;
+
 
 // fetch from batasan table
 
@@ -16,6 +14,20 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
+
+// batasan by user input
+$device_id = $_GET["device_id"];
+$input_ph = $_GET["batasan_ph"];
+$input_ppm = $_GET["batasan_ppm"];
+$sql_input = "SELECT * FROM batasan ORDER BY date DESC LIMIT 1";
+$result = mysqli_query($conn, $sql_input);
+
+while ($row = mysqli_fetch_assoc($result)) :
+  echo "<script>console.log('PHP: " . $row['device_id'] . "');</script>";
+  echo "<script>console.log('PHP: " . $row['batasan_ph'] . "');</script>";
+  echo "<script>console.log('PHP: " . $row['batasan_ppm'] . "');</script>";
+endwhile;
+
 // get date from time zone
 date_default_timezone_set('Asia/Jakarta');
 $date = date("Y/m/d H:i:s");
@@ -31,8 +43,8 @@ VALUES ('$device_id', '$sensor_ph' , '$sensor_ppm', '$sensor_level_air','$date')
 
 // Response
 if ($conn->query($sql) === TRUE) {
-    // membandingkan data sensor dan data yang diinput user
-    // for actuator
+  // membandingkan data sensor dan data yang diinput user
+  // for actuator
   if ($sensor_ph < $input_ph) {
 
     echo "tambahkan cairah ph up";

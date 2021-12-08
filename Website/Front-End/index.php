@@ -26,6 +26,7 @@ endif;
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
   <link rel="stylesheet" href="style/style_index.css" />
 
   <title>Skripsi Hidropinik</title>
@@ -46,6 +47,16 @@ endif;
         <a class="nav-link active" href="index.php">Device Collection</a>
       </div>
     </div>
+    <a href="#down">
+      <div class="notification-box">
+        <span class="notification-count">!</span>
+        <div class="notification-bell">
+          <span class="bell-top"></span>
+          <span class="bell-middle"></span>
+          <span class="bell-bottom"></span>
+          <span class="bell-rad"></span>
+        </div>
+    </a>
   </nav>
 
   <!-- Layout Collection of Devices -->
@@ -59,7 +70,8 @@ endif;
       <!-- Button Add New Device -->
       <div class="col">
         <button type="button" class="btn btn-primary" id="button-new-device" data-toggle="modal" data-target="#exampleModalCenter" data-whatever="@getbootstrap">
-          Add New Device
+          <a id="add-new-device-text"> Add New Device </a>
+          <span class="bi bi-plus-lg"></span>
         </button>
       </div>
     </div>
@@ -106,20 +118,24 @@ endif;
 
     <!-- Jumbotron Devices Collection-->
     <div class="container" id="layout-jumbot">
-      <?php
-      while ($row = mysqli_fetch_assoc($result)) : ?>
-        <a href="deviceDetail.php?device_id=<?= $row['device_id']; ?>&device_name=<?= $row['device_name']; ?>" style="text-decoration: none;">
-          <div class="jumbotron" id="jumbot-divcol">
-            <div id="device-name-title"><?= $row['device_name']; ?></div>
+      <div class="row row-cols-3">
+        <?php
+        while ($row = mysqli_fetch_assoc($result)) : ?>
+          <div class="col">
+            <a href="deviceDetail.php?device_id=<?= $row['device_id']; ?>&device_name=<?= $row['device_name']; ?>" style="text-decoration: none;">
+              <div class="jumbotron" id="jumbot-divcol">
+                <div id="device-name-title"><?= $row['device_name']; ?></div>
+              </div>
+            </a>
           </div>
-        </a>
-      <?php
-      endwhile;
-      ?>
+        <?php
+        endwhile;
+        ?>
+      </div>
     </div>
 
     <!-- Notifikasi -->
-    <h2>Notification</h2>
+    <h2 id="down">Notification</h2>
     <?php
     $sql = "SELECT device_collection.device_name, arduino_data.sensor_level_air, arduino_data.date FROM device_collection 
               LEFT JOIN arduino_data 
@@ -127,8 +143,9 @@ endif;
     $result = mysqli_query($conn, $sql);
     ?>
 
-    <table class="table table-bordered table-striped">
-      <tr>
+    <table class="table table-bordered" id="table-notification">
+
+      <tr bgcolor="#c2c2c9">
         <th id="header">Device Name</th>
         <th id="header">Notification</th>
         <th id="header">Date</th>
@@ -137,21 +154,23 @@ endif;
       <?php while ($row = mysqli_fetch_assoc($result)) :
         if ($row) :
       ?>
-          <tr>
+          <tr bgcolor="#FFFF8F">
             <?php if ($row['sensor_level_air'] == "MED") { ?>
-              <td><?= $row['device_name']; ?></td>
+              <td style="text-align: center;"><?= $row['device_name']; ?></td>
               <td>
                 Ketinggian air sudah berkurang, mohon diperhatikan
               </td>
-              <td><?= $row['date']; ?></td>
-            <?php } else if ($row['sensor_level_air'] == "LOW") { ?>
-              <td><?= $row['device_name']; ?></td>
-              <td>
-                Ketinggian air sudah rendah, mohon untuk tambahkan air
-              </td>
-              <td><?= $row['date']; ?></td>
-            <?php } ?>
+              <td style="text-align: center;"><?= $row['date']; ?></td>
+          </tr>
+        <?php } else if ($row['sensor_level_air'] == "LOW") { ?>
+          <tr bgcolor="#FA8072">
+            <td style="text-align: center;"><?= $row['device_name']; ?></td>
+            <td>
+              Ketinggian air sudah rendah, mohon untuk tambahkan air
             </td>
+            <td style="text-align: center;"><?= $row['date']; ?></td>
+          <?php } ?>
+          </td>
           </tr>
         <?php endif; ?>
       <?php endwhile; ?>
