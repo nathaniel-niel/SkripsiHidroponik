@@ -14,6 +14,11 @@ unsigned long timerDelay = 10000;
 HTTPClient http;
 WiFiClient client;
 
+// Relay
+#define relay_ph_up D0
+#define relay_ph_down D1
+#define relay_ppm D2
+
 // Variables
 String data;
 int incomingByte = 0;
@@ -23,6 +28,14 @@ void setup() {
   Serial.println("");
   Serial.print("Connecting to ");
   Serial.println(ssid);
+
+  // init relay
+  pinMode(relay_ph_up, OUTPUT);
+  pinMode(relay_ph_down, OUTPUT);
+  pinMode(relay_ppm, OUTPUT);
+  setPinRate(relay_ph_up, LOW);
+  setPinRate(relay_ph_down, LOW);
+  setPinRate(relay_ppm, LOW);
 
   // check is arduino connected to internet
   WiFi.mode(WIFI_STA);
@@ -49,20 +62,19 @@ void loop() {
         while (Serial.available()>0){
           data+= char(Serial.read());
         }
-        // trim data for erase the spacing
+         trim data //for erase the spacing
         data.trim();
         // send data to database
-        sendData(data);
+        sendData();
      }
      lastTime = millis();
   }
 }
 
-void sendData(String data){
+void sendData(){
   
 //   Start HTTP Connection
   if (http.begin(client, "http://192.168.1.13/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
-
     // Start connection and send HTTP header
     int httpCode = http.GET();
      if (httpCode > 0){
@@ -72,6 +84,36 @@ void sendData(String data){
       if (httpCode == HTTP_CODE_OK || HTTP_CODE_MOVED_PERMANENTLY){
         String payload = http.getString();
         Serial.println(payload);
+
+        if (payload == "add pH down"){
+            setPinRate(relay_ph_down, HIGH);
+            delay(2000);
+            setPinRate(relay_ph_down, LOW);
+        }
+        else if(payload == "add pH up"){
+            setPinRate(relay_ph_up, HIGH);
+            delay(2000);
+            setPinRate(relay_ph_up, LOW);
+        }
+        else if(payload == "add ppm"){
+            setPinRate(relay_ppm, HIGH);
+            delay(2000);
+            setPinRate(relay_ppm, LOW);
+        }
+        else if(payload == "add pH downadd ppm"){
+            setPinRate(relay_ph_down, HIGH);
+            setPinRate(relay_ppm, HIGH);
+            delay(2000);
+            setPinRate(relay_ph_down, LOW);
+            setPinRate(relay_ppm, LOW);
+        }
+        else if(payload == "add pH upadd ppm"){
+            setPinRate(relay_ph_up, HIGH);
+            setPinRate(relay_ppm, HIGH);
+            delay(2000);
+            setPinRate(relay_ph_up, LOW);
+            setPinRate(relay_ppm, LOW);
+        }
       }
     }else{
       Serial.printf("HTTP connection failed, error: %s\n", http.errorToString);
@@ -81,4 +123,7 @@ void sendData(String data){
    Serial.printf("HTTP  unable to connect\n") ;
   }  
  }
-    
+
+void setPinRate(int pin, bool state){
+  digitalWrite(pin,!state);
+}

@@ -5,9 +5,11 @@ $password = "";
 $dbname = "skripsi";
 
 // batasan by user input [dummy]
-$input_ph = 9;
+$input_ph = 7;
 $input_ppm = 1000;
 
+// response data
+$response = "";
 // fetch from batasan table
 
 // Create connection
@@ -33,12 +35,24 @@ VALUES ('$device_id', '$sensor_ph' , '$sensor_ppm', '$sensor_level_air','$date')
 if ($conn->query($sql) === TRUE) {
     // membandingkan data sensor dan data yang diinput user
     // for actuator
-  if ($sensor_ph < $input_ph) {
+  // if ($sensor_ph < $input_ph) {
 
-    echo "tambahkan cairah ph up";
-  } else {
-    echo "tambahkan cairan ph down";
+  //   echo "tambahkan cairah ph up";
+  // } else {
+  //   echo "tambahkan cairan ph down";
+  // }
+  if ($sensor_ph > $input_ph){
+    $response .= "add pH down";
   }
+  elseif($sensor_ph < $input_ph){
+    $response .= "add pH up";
+  }
+
+  if ($sensor_ppm < $input_ppm){
+    $response .= "add ppm";
+  }
+  echo $response;
+  $response = "";
 } else {
   echo "Error: " . $sql . "<br>" . $conn->error;
 }
