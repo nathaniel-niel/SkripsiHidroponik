@@ -1,5 +1,21 @@
 <?php
 require '../Back-End/function.php';
+
+if (isset($_POST["submitNewDevice"])) :
+  if (savedNewDevice($_POST) > 0) :
+    echo "
+    <script>
+    alert('Device Berhasil Ditambahkan!');
+    </script>
+    ";
+  else :
+    echo "
+    <script>
+    alert('Device Gagal Ditambahkan!');
+    </script>
+    ";
+  endif;
+endif;
 ?>
 
 <!DOCTYPE html>
@@ -10,10 +26,10 @@ require '../Back-End/function.php';
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous" />
-  <link rel="stylesheet" href="style/style_deviceCollection.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="style/style_index.css" />
 
-  <title>Hello Bang!</title>
-
+  <title>Skripsi Hidropinik</title>
 </head>
 
 <body>
@@ -22,15 +38,25 @@ require '../Back-End/function.php';
 
   <!-- bar navigasi -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-    <a class="navbar-brand" href="deviceCollection.php">JNC</a>
+    <a class="navbar-brand" href="index.php">JNC</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" href="deviceCollection.php">Device Collection</a>
+        <a class="nav-link active" href="index.php">Device Collection</a>
       </div>
     </div>
+    <a href="#down">
+      <div class="notification-box">
+        <span class="notification-count">!</span>
+        <div class="notification-bell">
+          <span class="bell-top"></span>
+          <span class="bell-middle"></span>
+          <span class="bell-bottom"></span>
+          <span class="bell-rad"></span>
+        </div>
+    </a>
   </nav>
 
   <!-- Layout Collection of Devices -->
@@ -44,7 +70,8 @@ require '../Back-End/function.php';
       <!-- Button Add New Device -->
       <div class="col">
         <button type="button" class="btn btn-primary" id="button-new-device" data-toggle="modal" data-target="#exampleModalCenter" data-whatever="@getbootstrap">
-          Add New Device
+          <a id="add-new-device-text"> Add New Device </a>
+          <span class="bi bi-plus-lg"></span>
         </button>
       </div>
     </div>
@@ -79,38 +106,36 @@ require '../Back-End/function.php';
               </table>
             </form>
           </div>
-
         </div>
       </div>
     </div>
 
     <?php
     // Attempt select query execution
-    $sql = "SELECT * FROM device_collection ORDER BY date";
+    $sql = "SELECT * FROM device_collection ORDER BY date DESC";
     $result = mysqli_query($conn, $sql);
     ?>
 
     <!-- Jumbotron Devices Collection-->
     <div class="container" id="layout-jumbot">
-      <?php
-      while ($row = mysqli_fetch_assoc($result)) : ?>
-
-        <a href="deviceDetail.php?device_id=<?= $row['device_id']; ?>&device_name=<?= $row['device_name']; ?>" style="text-decoration: none;">
-          <div class="jumbotron" id="jumbot-divcol">
-            <div id="device-name-title"><?= $row['device_name']; ?></div>
+      <div class="row row-cols-3">
+        <?php
+        while ($row = mysqli_fetch_assoc($result)) : ?>
+          <div class="col">
+            <a href="deviceDetail.php?device_id=<?= $row['device_id']; ?>&device_name=<?= $row['device_name']; ?>" style="text-decoration: none;">
+              <div class="jumbotron" id="jumbot-divcol">
+                <div id="device-name-title"><?= $row['device_name']; ?></div>
+              </div>
+            </a>
           </div>
-        </a>
-
-
-      <?php
-      endwhile;
-      ?>
+        <?php
+        endwhile;
+        ?>
+      </div>
     </div>
 
-
     <!-- Notifikasi -->
-    <h2>Notification</h2>
-
+    <h2 id="down">Notification</h2>
     <?php
     $sql = "SELECT device_collection.device_name, arduino_data.sensor_level_air, arduino_data.date FROM device_collection 
               LEFT JOIN arduino_data 
@@ -118,8 +143,9 @@ require '../Back-End/function.php';
     $result = mysqli_query($conn, $sql);
     ?>
 
-    <table class="table table-bordered table-striped">
-      <tr>
+    <table class="table table-bordered" id="table-notification">
+
+      <tr bgcolor="#c2c2c9">
         <th id="header">Device Name</th>
         <th id="header">Notification</th>
         <th id="header">Date</th>
@@ -128,21 +154,23 @@ require '../Back-End/function.php';
       <?php while ($row = mysqli_fetch_assoc($result)) :
         if ($row) :
       ?>
-          <tr>
+          <tr bgcolor="#FFFF8F">
             <?php if ($row['sensor_level_air'] == "MED") { ?>
-              <td><?= $row['device_name']; ?></td>
+              <td style="text-align: center;"><?= $row['device_name']; ?></td>
               <td>
                 Ketinggian air sudah berkurang, mohon diperhatikan
               </td>
-              <td><?= $row['date']; ?></td>
-            <?php } else if ($row['sensor_level_air'] == "LOW") { ?>
-              <td><?= $row['device_name']; ?></td>
-              <td>
-                Ketinggian air sudah rendah, mohon untuk tambahkan air
-              </td>
-              <td><?= $row['date']; ?></td>
-            <?php } ?>
+              <td style="text-align: center;"><?= $row['date']; ?></td>
+          </tr>
+        <?php } else if ($row['sensor_level_air'] == "LOW") { ?>
+          <tr bgcolor="#FA8072">
+            <td style="text-align: center;"><?= $row['device_name']; ?></td>
+            <td>
+              Ketinggian air sudah rendah, mohon untuk tambahkan air
             </td>
+            <td style="text-align: center;"><?= $row['date']; ?></td>
+          <?php } ?>
+          </td>
           </tr>
         <?php endif; ?>
       <?php endwhile; ?>
@@ -151,21 +179,3 @@ require '../Back-End/function.php';
 </body>
 
 </html>
-
-<?php
-if (isset($_POST["submitNewDevice"])) :
-  if (savedNewDevice($_POST) > 0) :
-    echo "
-      <script>
-      alert('Device Berhasil Ditambahkan!');
-      </script>
-      ";
-  else :
-    echo "
-      <script>
-      alert('Device Gagal Ditambahkan!');
-      </script>
-      ";
-  endif;
-endif;
-?>

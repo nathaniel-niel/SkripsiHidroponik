@@ -9,13 +9,11 @@ function savedBatasan($data)
     $batasan_ph = $data['batasan_ph'];
     $batasan_ppm = $data['batasan_ppm'];
 
-    echo "<script>console.log('Debug Objects: " . $device_id . "' );</script>";
-
     //set date
     date_default_timezone_set('Asia/Jakarta');
-    $date = date("d/m/Y H:i:s");
+    $date = date("Y/m/d H:i:s");
 
-    $sql = "INSERT INTO batasan VALUES ('$device_id', '$batasan_ph' , '$batasan_ppm', '$date')";
+    $sql = "INSERT INTO batasan VALUES ('$device_id', '$batasan_ph' , '$batasan_ppm','$date')";
 
     mysqli_query($conn, $sql);
 
@@ -31,9 +29,9 @@ function savedNewDevice($data)
 
     //set date
     date_default_timezone_set('Asia/Jakarta');
-    $date = date("d/m/Y H:i:s");
+    $date = date("Y/m/d H:i:s");
 
-    $sql = "INSERT INTO device_collection VALUES ('$device_id' , '$device_name', '$date')";
+    $sql = "INSERT INTO device_collection VALUES ('$device_id' , '$device_name','$date')";
 
     mysqli_query($conn, $sql);
     return mysqli_affected_rows($conn);
