@@ -1,5 +1,5 @@
 <?php
-require '../global.php';
+require '../../global.php';
 
 function savedBatasan($data)
 {

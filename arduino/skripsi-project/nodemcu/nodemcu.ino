@@ -59,11 +59,11 @@ void loop() {
       if (WiFi.status() == WL_CONNECTED){
          
         // add functio to send data here
-        while (Serial.available()>0){
-          data+= char(Serial.read());
-        }
-         trim data //for erase the spacing
-        data.trim();
+//        while (Serial.available()>0){
+//          data+= char(Serial.read());
+//        }
+//         trim data //for erase the spacing
+//        data.trim();
         // send data to database
         sendData();
      }
@@ -74,8 +74,10 @@ void loop() {
 void sendData(){
   
 //   Start HTTP Connection
-  if (http.begin(client, "http://192.168.1.13/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
-    // Start connection and send HTTP header
+//  if (http.begin(client, "http://192.168.1.13/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
+  // Start connection and send HTTP header
+  if (http.begin(client, "http://192.168.1.11/SkripsiHidroponik/arduino/phpfile/data.php?device_id=DVC002&sensor_ph=8&sensor_ppm=500&sensor_level_air=LOW")){
+   
     int httpCode = http.GET();
      if (httpCode > 0){
       Serial.printf("HTTP code: %d\n", httpCode);
