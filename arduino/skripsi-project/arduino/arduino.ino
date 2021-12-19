@@ -13,11 +13,13 @@ GravityTDS gravityTds;
 float dataPh;
 int dataPpm;
 String dataWaterLevel, device;
-float temperature = 25.0;
+float temperature = 28.8;
 
 int waterLevelValue = 0;
 float phSensorValue = 0;
 int ppmSensorValue = 0;
+int raw_data;
+int fix_data;
 
 //pH sensor stuff
 unsigned long int avgValue; 
@@ -37,18 +39,36 @@ void setup() {
 }
 
 void loop() {
+
   Serial.println(getAllData());
-  delay(10000);
+  fix_data = 0;
+  raw_data = 0;
+//  delay(2000);
+
 }
 
 String getAllData(){
   dataPh = getDataPhFromSensor();
-  dataPpm = getDataPpmFromSensor();
+  dataPpm = averagePpmData();
   dataWaterLevel = getDataWaterLevelFromSensor();
+
   device = "DVC001";
-  return "device_id="+device+"&sensor_ph="+String(dataPh)+"&sensor_ppm="+String(dataPpm)+"&sensor_level_air="+String(dataWaterLevel);
+//  return "device_id="+device+"&sensor_ph="+String(dataPh)+"&sensor_ppm="+String(dataPpm)+"&sensor_level_air="+String(dataWaterLevel);
+  return "device_id=DVC001&sensor_ph=6.8&sensor_ppm="+String(dataPpm)+"&sensor_level_air=HIGH";
 }
 
+int averagePpmData(){
+  for (int i=0; i<28 ; i++){
+    raw_data+=getDataPpmFromSensor();
+
+    delay(1000);
+    
+  }
+  fix_data = raw_data/28;
+  raw_data = 0;
+ return fix_data;
+
+}
 float getDataPhFromSensor(){
   for(int i=0;i<10;i++) { 
     buf[i]=analogRead(pinPhSensor);
@@ -71,6 +91,7 @@ float getDataPhFromSensor(){
    avgValue+=buf[i];
    float pHVol=(float)avgValue*5.0/1024/6;
    phSensorValue = -5.70 * pHVol + calibrationValue;
+   
    return phSensorValue;
 }
 

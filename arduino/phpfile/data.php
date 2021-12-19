@@ -23,6 +23,7 @@ while ($row = mysqli_fetch_assoc($result)) :
     
     $input_ph = $row['batasan_ph'];
     $input_ppm = $row['batasan_ppm'];
+    $input_banyak_air = $row['banyak_air'];
 
 endwhile;
 
@@ -37,7 +38,7 @@ if ($conn->query($sql) === TRUE) {
   ppm -> pm
   writing format : 
   */
-
+$response = "$input_banyak_air*";
   if ($sensor_ph > $input_ph){
     $diff = $sensor_ph-$input_ph;
     $response .= "pd_$diff ";
