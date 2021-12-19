@@ -63,7 +63,7 @@ endif;
     <div class="row" style="margin-top: 40px;">
       <div class="col-sm-8">
         <!-- Kolom Input Form -->
-        <div class="jumbotron jumbotron-fluid" style="height: 300px;">
+        <div class="jumbotron jumbotron-fluid" style="height: 425px;">
           <div class="container">
             <h2>Input Form</h2>
 
@@ -72,17 +72,24 @@ endif;
               <form action="" method="post">
                 <td><input type="hidden" step=".01" id="dev" name="dev" value="<?= $dev_id ?>" required></td>
 
-                <!-- Batasan -->
+                <!-- Input Batasan -->
                 <tr>
-                  <td id="col-label"><label for="batasan_ph" class="h5" style="margin-left: 30px; font-size: 25px">pH Limit</label></td>
+                  <td id="col-label"><label for="batasan_ph" class="h5" style="margin-left: 30px; font-size: 25px; width: 225px">pH Limit</label></td>
                   <td id="col-input"><input type="number" step=".01" id="batasan_ph" name="batasan_ph" value="" required style="border-radius: 10px; height: 40px;"></td>
                 </tr>
                 <tr>
                   <td id=" col-label"><label for="batasan_ppm" class="h5" style="margin-left: 30px; font-size: 25px">PPM Limit</label></td>
                   <td id="col-input"><input type="number" id="batasan_ppm" name="batasan_ppm" value="" required style="border-radius: 10px; height: 40px;" /></td>
                 </tr>
-                <tr class="bottomright">
 
+                <!-- Input Banyak Air dalam ml -->
+                <tr>
+                  <td id=" col-label"><label for="banyak_air" class="h5" style="margin-left: 30px; font-size: 25px">Water Volume (ml)</label></td>
+                  <td id="col-input"><input type="number" id="banyak_air" name="banyak_air" value="" required style="border-radius: 10px; height: 40px;" /></td>
+                </tr>
+
+
+                <tr class="bottomright">
                   <!-- Button Submit -->
                   <td><button type="submit" name="submitBatasan" id="save-btn">Save</button></td>
                 </tr>
@@ -92,12 +99,12 @@ endif;
         </div>
       </div>
 
-      <!-- Kolom Limit -->
+      <!-- Kolom Tampil Limit -->
       <div class="col-sm-4">
-        <div class="jumbotron jumbotron-fluid" style="height: 300px;">
+        <div class="jumbotron jumbotron-fluid" style="height: 425px;">
           <div class="container">
 
-            <!-- pH limit -->
+            <!-- Tampil pH limit -->
             <h3 style="text-align: center;">pH Limit</h3>
             <?php
             $sql = "SELECT batasan_ph FROM batasan WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
@@ -115,7 +122,7 @@ endif;
               </div>
             <?php endif; ?>
 
-            <!-- PPM Limit -->
+            <!-- Tampil PPM Limit -->
             <h3 style="text-align: center;">PPM Limit</h3>
             <?php
             $sql = "SELECT batasan_ppm FROM batasan WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
@@ -130,6 +137,24 @@ endif;
             <?php else : ?>
               <div id="limit-value">
                 <td><?= $row['batasan_ppm']; ?></td>
+              </div>
+            <?php endif; ?>
+
+            <!-- Tampil PPM Limit -->
+            <h3 style="text-align: center;">Water Volume</h3>
+            <?php
+            $sql = "SELECT banyak_air FROM batasan WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
+            $result = mysqli_query($conn, $sql);
+            ?>
+
+            <?php $row = mysqli_fetch_assoc($result) ?>
+            <?php if (!$row) : ?>
+              <div id='limit-value'>
+                <td> 0 ml</td>
+              </div>
+            <?php else : ?>
+              <div id="limit-value">
+                <td><?= $row['banyak_air']; ?> ml </td>
               </div>
             <?php endif; ?>
           </div>

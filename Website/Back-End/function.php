@@ -8,12 +8,13 @@ function savedBatasan($data)
     $device_id = $data['dev'];
     $batasan_ph = $data['batasan_ph'];
     $batasan_ppm = $data['batasan_ppm'];
+    $banyak_air = $data['banyak_air'];
 
     //set date
     date_default_timezone_set('Asia/Jakarta');
     $date = date("Y/m/d H:i:s");
 
-    $sql = "INSERT INTO batasan VALUES ('$device_id', '$batasan_ph' , '$batasan_ppm','$date')";
+    $sql = "INSERT INTO batasan VALUES ('$device_id', '$batasan_ph' , '$batasan_ppm', '$banyak_air' ,'$date')";
 
     mysqli_query($conn, $sql);
 
