@@ -30,16 +30,25 @@ endwhile;
 if ($conn->query($sql) === TRUE) {
     // membandingkan data sensor dan data yang diinput user
     // for actuator
+  /*
+  Dictionary
+  pH up -> pu
+  pH down -> pd
+  ppm -> pm
+  writing format : 
+  */
 
   if ($sensor_ph > $input_ph){
-    $response .= "add pH down";
+    $diff = $sensor_ph-$input_ph;
+    $response .= "pd_$diff ";
   }
   elseif($sensor_ph < $input_ph){
-    $response .= "add pH up";
+    $diff = $input_ph-$sensor_ph;
+    $response .= "pu_$diff ";
   }
-
   if ($sensor_ppm < $input_ppm){
-    $response .= "add ppm";
+    $diff = $input_ppm-$sensor_ppm;
+    $response .= "pm_$diff ";
   }
   echo $response;
   $response = "";
