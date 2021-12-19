@@ -140,7 +140,7 @@ endif;
               </div>
             <?php endif; ?>
 
-            <!-- Tampil PPM Limit -->
+            <!-- Tampil Water Volume -->
             <h3 style="text-align: center;">Water Volume</h3>
             <?php
             $sql = "SELECT banyak_air FROM batasan WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
