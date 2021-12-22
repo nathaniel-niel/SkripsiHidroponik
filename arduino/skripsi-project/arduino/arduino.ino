@@ -13,19 +13,22 @@ GravityTDS gravityTds;
 float dataPh;
 int dataPpm;
 String dataWaterLevel, device;
-float temperature = 28.8;
+float temperature = 28.5;
 
 int waterLevelValue = 0;
 float phSensorValue = 0;
 int ppmSensorValue = 0;
-int raw_data;
-int fix_data;
+int raw_data_ppm;
+int avg_data_ppm;
+float raw_data_ph;
+float avg_data_ph;
+int measure = 0;
 
 //pH sensor stuff
 unsigned long int avgValue; 
 float b;
-int buf[10],temp;
-float calibrationValue = 21.34 - 0.51;
+int buf[10],temp, ppm_arr[30];
+float calibrationValue = 21.338 - 0.51;
 
 void setup() {
   Serial.begin(115200);
@@ -40,16 +43,16 @@ void setup() {
 
 void loop() {
 
+  getpHData();
   Serial.println(getAllData());
-  fix_data = 0;
-  raw_data = 0;
-//  delay(2000);
-
+  avg_data_ppm = 0;
+  avg_data_ph = 0;
+delay(1000);
 }
 
 String getAllData(){
   dataPh = getDataPhFromSensor();
-  dataPpm = averagePpmData();
+  dataPpm = avgPpm();
   dataWaterLevel = getDataWaterLevelFromSensor();
 
   device = "DVC001";
@@ -57,17 +60,20 @@ String getAllData(){
   return "device_id=DVC001&sensor_ph=6.8&sensor_ppm="+String(dataPpm)+"&sensor_level_air=HIGH";
 }
 
-int averagePpmData(){
-  for (int i=0; i<28 ; i++){
-    raw_data+=getDataPpmFromSensor();
+float averagePhData(){
+   delay(5000);
+   for (int i=0; i<10 ; i++){
+    
+    float data = getDataPhFromSensor();
+    Serial.println(data);
+    raw_data_ph+=data;
 
     delay(1000);
-    
-  }
-  fix_data = raw_data/28;
-  raw_data = 0;
- return fix_data;
 
+  }
+  avg_data_ph = raw_data_ph/10;
+  raw_data_ph = 0;
+ return avg_data_ph;
 }
 float getDataPhFromSensor(){
   for(int i=0;i<10;i++) { 
@@ -95,11 +101,48 @@ float getDataPhFromSensor(){
    return phSensorValue;
 }
 
+float getpHData(){
+  for(int i=0;i<10;i++) 
+ { 
+  buf[i]=analogRead(pinPhSensor);
+  delay(10);
+ }
+
+ avgValue=0;
+ for(int i=2;i<8;i++)
+ avgValue+=buf[i];
+ 
+ float pHVol=(float)avgValue*5.0/1024/6;
+ float pHFormula= 7 + ((2.5-pHVol)/0.18);
+ float phValue = -5.70 * pHVol + 21.34;
+ return phValue;
+// Serial.print("voltage : ");
+// Serial.println(pHVol);
+// Serial.print("Formula : ");
+// Serial.println(pHFormula);
+// Serial.print("Calibration : ");
+// Serial.println(phValue);
+
+}
+
 int getDataPpmFromSensor(){
-  gravityTds.setTemperature(temperature);
-  gravityTds.update();
-  ppmSensorValue = gravityTds.getTdsValue();
-  return ppmSensorValue;
+  for(int i=0;i<30;i++) { 
+    gravityTds.setTemperature(temperature);
+    gravityTds.update();
+    ppmSensorValue = gravityTds.getTdsValue();
+    ppm_arr[i]=ppmSensorValue;
+    delay(1000);
+   }
+}
+
+float avgPpm(){
+   getDataPpmFromSensor();
+   for (int i=5; i<30 ; i++){
+    raw_data_ppm+=ppm_arr[i];
+  }
+  avg_data_ppm = raw_data_ppm/25;
+  raw_data_ppm = 0;
+ return avg_data_ppm;
 }
 
 String getDataWaterLevelFromSensor(){

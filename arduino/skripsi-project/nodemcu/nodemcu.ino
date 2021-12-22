@@ -8,7 +8,7 @@ const char* pass = "basketball29";
 
 // Delay Configuration
 unsigned long lastTime = 0;
-unsigned long timerDelay = 28000;
+unsigned long timerDelay = 30000;
 
 // Object Declaration
 HTTPClient http;
@@ -102,7 +102,7 @@ void sendData(String data){
         code_pm_raw = code.substring(code.indexOf(" ")+1);
   
         code_water_value_raw = payload.substring(0,payload.indexOf("*"));
-        water_value =  code_water_value_raw.toInt();
+        water_value =  code_water_value_raw.toFloat();
 //        Serial.println("RAW VALUE");
 //        Serial.println("nilai air: " + code_water_value_raw);
 //        Serial.println("ppm: " + code_pm_raw);
@@ -177,12 +177,16 @@ void setPinRate(int pin, bool state){
   digitalWrite(pin,!state);
 }
 
-int CalDelay(int diff, int banyak_air){
+int CalDelay(int diff, float banyak_air){
   float perbedaan_air;
   int waktu_jeda;
   float ml_yang_diperlukan;
-  
+  Serial.print("perbedaan: ");
+  Serial.println(diff);
+  Serial.print("banyak air: ");
+  Serial.println(banyak_air);
   perbedaan_air = banyak_air/ 1000;
+  Serial.println(perbedaan_air);
   ml_yang_diperlukan = diff/5.8*5;
   waktu_jeda = 2.5* ml_yang_diperlukan/5* 1000*perbedaan_air;
   return waktu_jeda;

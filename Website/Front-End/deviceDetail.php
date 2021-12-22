@@ -56,9 +56,20 @@ endif;
 
   <!-- Input Form & Informasi Layout -->
   <div class="container" id="main-layout">
-    <!-- Title -->
-    <h1 id="judul"><?= $_GET["device_name"]; ?></h1>
 
+  <div class="row align-items-start">
+    <div class="col">
+      <!-- Title -->
+      <h1 id="judul"><?= $_GET["device_name"]; ?></h1>
+    </div>
+    <div class="col">
+        <button type="button" class="btn btn-primary" id="button-del-device" data-toggle="modal" data-target="#exampleModalCenter" data-whatever="@getbootstrap">
+          <a id="del-device-text"> Delete Device </a>
+          <span class="bi bi-plus-lg"></span>
+        </button>
+      </div>
+  </div>
+    
     <!-- Layout Input & Limit -->
     <div class="row" style="margin-top: 40px;">
       <div class="col-sm-8">
