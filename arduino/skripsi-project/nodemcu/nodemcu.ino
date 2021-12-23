@@ -8,7 +8,7 @@ const char* pass = "basketball29";
 
 // Delay Configuration
 unsigned long lastTime = 0;
-unsigned long timerDelay = 30000;
+unsigned long timerDelay = 31300;
 
 // Object Declaration
 HTTPClient http;
@@ -122,13 +122,13 @@ void sendData(String data){
         
         if (response == "pd"){
             setPinRate(relay_ph_down, HIGH);
-            delay(2000);
+            delay(CalDelay_pd(value_ph, water_value));
             Serial.println("pd OK!");
             setPinRate(relay_ph_down, LOW);
         }
         else if(response == "pu"){
             setPinRate(relay_ph_up, HIGH);
-            delay(2000);
+            delay(CalDelay_pu(value_ph, water_value));
             setPinRate(relay_ph_up, LOW);
             Serial.println("pu OK!");
         }
@@ -140,9 +140,8 @@ void sendData(String data){
            Serial.println("ppm value: " + String(value_pm));
            
             setPinRate(relay_ppm, HIGH);
-            delay(CalDelay(value_pm, water_value));
+            delay(CalDelay_ppm(value_pm));
             
-            Serial.println(CalDelay(value_pm, water_value));
             setPinRate(relay_ppm, LOW);
           
             Serial.println("pm OK!");
@@ -177,18 +176,31 @@ void setPinRate(int pin, bool state){
   digitalWrite(pin,!state);
 }
 
-int CalDelay(int diff, float banyak_air){
+int CalDelay_ppm(int diff){
+  int waktu_jeda;
+  float ml_yang_diperlukan;
+  ml_yang_diperlukan = diff/5.8*5;
+  waktu_jeda = 2.5* ml_yang_diperlukan/5* 1000;
+  return waktu_jeda;
+}
+
+int CalDelay_pu(int diff, float banyak_air){
   float perbedaan_air;
   int waktu_jeda;
   float ml_yang_diperlukan;
-  Serial.print("perbedaan: ");
-  Serial.println(diff);
-  Serial.print("banyak air: ");
-  Serial.println(banyak_air);
   perbedaan_air = banyak_air/ 1000;
-  Serial.println(perbedaan_air);
-  ml_yang_diperlukan = diff/5.8*5;
-  waktu_jeda = 2.5* ml_yang_diperlukan/5* 1000*perbedaan_air;
+  ml_yang_diperlukan = diff/0.5*4;
+  waktu_jeda = 2*ml_yang_diperlukan/4*1000*perbedaan_air;
+  return waktu_jeda;
+}
+
+int CalDelay_pd(int diff, float banyak_air){
+  float perbedaan_air;
+  int waktu_jeda;
+  float ml_yang_diperlukan;
+  perbedaan_air = banyak_air/ 1000;
+  ml_yang_diperlukan = diff/0.55*4;
+  waktu_jeda = 2*ml_yang_diperlukan/4*1000*perbedaan_air;
   return waktu_jeda;
 }
 
