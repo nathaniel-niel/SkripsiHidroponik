@@ -16,6 +16,23 @@ if (isset($_POST["submitBatasan"])) :
     ";
   endif;
 endif;
+
+if (isset($_POST["submitDeleteDevice"])) :
+  if (deleteDevice($_POST) > 0) :
+    echo "
+    <script>
+    alert('Device Berhasil Dihapus!');
+    document.location.href = 'index.php';
+    </script>
+    ";
+  else :
+    echo "
+    <script>
+    alert('Device Gagal Dihapus!');
+    </script>
+    ";
+  endif;
+endif;
 ?>
 
 <!DOCTYPE html>
@@ -56,20 +73,21 @@ endif;
 
   <!-- Input Form & Informasi Layout -->
   <div class="container" id="main-layout">
-
-  <div class="row align-items-start">
-    <div class="col">
-      <!-- Title -->
-      <h1 id="judul"><?= $_GET["device_name"]; ?></h1>
-    </div>
-    <div class="col">
-        <button type="button" class="btn btn-primary" id="button-del-device" data-toggle="modal" data-target="#exampleModalCenter" data-whatever="@getbootstrap">
-          <a id="del-device-text"> Delete Device </a>
-          <span class="bi bi-plus-lg"></span>
-        </button>
+    <!-- Kolom Nama Device & Button Delete Device -->
+    <div class="row align-items-start">
+      <!-- Nama Device -->
+      <div class="col">
+        <h2 id="judul"><?= $_GET["device_name"]; ?></h2>
       </div>
-  </div>
-    
+      <!-- Button Delete Device -->
+      <form action="" method="post">
+        <div class="col">
+          <button type="submitDeleteDevice" name="submitDeleteDevice" class="btn btn-primary" id="button-del-device" style="background-color: red; border-color:red;"> Delete Device </button>
+          <span class="bi bi-trash"></span>
+        </div>
+      </form>
+    </div>
+
     <!-- Layout Input & Limit -->
     <div class="row" style="margin-top: 40px;">
       <div class="col-sm-8">
