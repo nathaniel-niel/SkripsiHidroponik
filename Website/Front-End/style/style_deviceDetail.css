@@ -8,10 +8,9 @@
   width: 180px;
   padding: 0;
   position: relative;
-  right: 16px;
 }
 
-.del-device-text {
+#del-device-text {
   text-align: center;
   margin: 0;
   position: absolute;
