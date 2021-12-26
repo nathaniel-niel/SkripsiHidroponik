@@ -13,7 +13,7 @@ GravityTDS gravityTds;
 float dataPh;
 int dataPpm;
 String dataWaterLevel, device;
-float temperature = 28.5;
+float temperature = 25;
 
 int waterLevelValue = 0;
 float phSensorValue = 0;
@@ -27,7 +27,7 @@ int measure = 0;
 //pH sensor stuff
 unsigned long int avgValue; 
 float b;
-int pH_arr[30],temp, ppm_arr[30];
+int pH_arr[30],ppm_arr[30];
 float calibrationValue = 21.338 - 0.51;
 
 void setup() {
@@ -45,7 +45,7 @@ void loop() {
   Serial.println(getAllData());
   avg_data_ppm = 0;
   avg_data_ph = 0;
-delay(1000);
+  delay(30000);
 }
 
 String getAllData(){
@@ -54,8 +54,8 @@ String getAllData(){
   dataWaterLevel = getDataWaterLevelFromSensor();
 
   device = "DVC001";
-//  return "device_id="+device+"&sensor_ph="+String(dataPh)+"&sensor_ppm="+String(dataPpm)+"&sensor_level_air="+String(dataWaterLevel);
-  return "device_id=DVC001&sensor_ph="+String(dataPh)+"&sensor_ppm=500&sensor_level_air=HIGH";
+  return "device_id="+device+"&sensor_ph="+String(dataPh)+"&sensor_ppm="+String(dataPpm)+"&sensor_level_air=HIGH";
+//  return "device_id=DVC001&sensor_ph="+String(dataPh)+"&sensor_ppm="+String(dataPpm)+"&sensor_level_air="+String(dataWaterLevel);
 }
 
 
@@ -98,15 +98,15 @@ float avgPpm(){
 }
 
 String getDataWaterLevelFromSensor(){
-  waterLevelValue = analogRead(pinWaterLevel);
-
-  if (waterLevelValue >=643){
+  waterLevelValue= analogRead(pinWaterLevel);
+  if (  waterLevelValue >=651){
     return "HIGH";
   }
-  else if (waterLevelValue >= 573 && waterLevelValue <= 642){
+  else if (waterLevelValue>= 430 &&   waterLevelValue <= 650){
     return "MED";
   }
-  else if (waterLevelValue <= 572){
+  else if (waterLevelValue <= 429){
     return "LOW";
   }
+ 
 }

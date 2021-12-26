@@ -8,16 +8,16 @@ const char* pass = "basketball29";
 
 // Delay Configuration
 unsigned long lastTime = 0;
-unsigned long timerDelay = 31300;
+unsigned long timerDelay = 6000;
 
 // Object Declaration
 HTTPClient http;
 WiFiClient client;
 
 // Relay
-#define relay_ph_up D1
+#define relay_ph_up D0
 #define relay_ph_down D2
-#define relay_ppm D3
+#define relay_ppm D1
 
 // Variables
 String data;
@@ -140,27 +140,21 @@ void sendData(String data){
            Serial.println("ppm value: " + String(value_pm));
            
             setPinRate(relay_ppm, HIGH);
-            delay(CalDelay_ppm(value_pm));
+            delay(CalDelay_ppm(value_pm, water_value));
             
             setPinRate(relay_ppm, LOW);
           
             Serial.println("pm OK!");
         }
         else if(response == "pdpm"){
-            setPinRate(relay_ph_down, HIGH);
-            setPinRate(relay_ppm, HIGH);
-            delay(2000);
-            setPinRate(relay_ph_down, LOW);
-            setPinRate(relay_ppm, LOW);
+            pd_run(CalDelay_pu(value_ph, water_value));
+            pm_run(CalDelay_ppm(value_pm, water_value));
             Serial.println("pdpm OK!");
         }
         else if(response == "pupm" ){
-            setPinRate(relay_ph_up, HIGH);
-            setPinRate(relay_ppm, HIGH);
-            delay(2000);
-            setPinRate(relay_ph_up, LOW);
-            setPinRate(relay_ppm, LOW);
-            Serial.println("pupm OK!");
+             pu_run(CalDelay_pu(value_ph, water_value));
+             pm_run(CalDelay_ppm(value_pm, water_value));
+             Serial.println("pupm OK!");
         }
       }
     }else{
@@ -176,11 +170,13 @@ void setPinRate(int pin, bool state){
   digitalWrite(pin,!state);
 }
 
-int CalDelay_ppm(int diff){
+int CalDelay_ppm(int diff,float banyak_air){
+  float perbedaan_air;
   int waktu_jeda;
   float ml_yang_diperlukan;
+  perbedaan_air = banyak_air/ 1000;
   ml_yang_diperlukan = diff/5.8*5;
-  waktu_jeda = 2.5* ml_yang_diperlukan/5* 1000;
+  waktu_jeda = 2.5* ml_yang_diperlukan/5* 1000*perbedaan_air;
   return waktu_jeda;
 }
 
@@ -204,10 +200,20 @@ int CalDelay_pd(int diff, float banyak_air){
   return waktu_jeda;
 }
 
-void ppm_pump_on(){
-    setPinRate(relay_ppm, HIGH);
+void pu_run(int dly){
+  setPinRate(relay_ph_up, HIGH);
+  delay(dly);
+  setPinRate(relay_ph_up, LOW);
 }
 
-void ppm_pump_off(){
-   setPinRate(relay_ppm, LOW);
+void pd_run(int dly){
+  setPinRate(relay_ph_down, HIGH);
+  delay(dly);
+  setPinRate(relay_ph_down, LOW);
+}
+
+void pm_run(int dly){
+  setPinRate(relay_ppm, HIGH);
+  delay(dly);
+  setPinRate(relay_ppm, LOW);
 }
