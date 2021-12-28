@@ -5,13 +5,13 @@ if (isset($_POST["submitBatasan"])) :
   if (savedBatasan($_POST) > 0) :
     echo "
     <script>
-    alert('Batasan Berhasil Tersimpan!');
+    alert('BATASAN BERHASIL DISIMPAN!');
     </script>
     ";
   else :
     echo "
     <script>
-    alert('Batasan Gagal Tersimpan!');
+    alert('BATASAN GAGAL DISIMPAN!');
     </script>
     ";
   endif;
@@ -21,14 +21,14 @@ if (isset($_POST["submitDeleteDevice"])) :
   if (deleteDevice($_POST) > 0) :
     echo "
     <script>
-    alert('Device Berhasil Dihapus!');
+    alert('DEVICE BERHASIL DIHAPUS!');
     document.location.href = 'index.php';
     </script>
     ";
   else :
     echo "
     <script>
-    alert('Device Gagal Dihapus!');
+    alert('DEVICE GAGAL DIHAPUS!');
     </script>
     ";
   endif;
@@ -52,7 +52,7 @@ endif;
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
-  <!-- bar navigasi -->
+  <!-- NAVIGATION BAR -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <a class="navbar-brand" href="index.php">JNC</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,26 +66,54 @@ endif;
     </div>
   </nav>
 
-  <!-- GET Device ID From url -->
+  <!-- GET DEVICE ID FROM URL -->
   <?php
   $dev_id = $_GET["device_id"];
   ?>
 
-  <!-- Input Form & Informasi Layout -->
+  <!-- INPUT FORM & INFORMASI LAYOUT -->
   <div class="container" id="main-layout">
-    <!-- Kolom Nama Device & Button Delete Device -->
+    <!-- KOLOM NAMA DEVICE & BUTTON DELETE DEVICE -->
     <div class="row align-items-start">
-      <!-- Nama Device -->
+
+      <!-- DEVICE NAME -->
       <div class="col">
         <h2 id="judul"><?= $_GET["device_name"]; ?></h2>
       </div>
-      <!-- Button Delete Device -->
-      <form action="" method="post">
-        <div class="col">
-          <button type="submitDeleteDevice" name="submitDeleteDevice" class="btn btn-primary" id="button-del-device" style="background-color: red; border-color:red;"> Delete Device </button>
-          <span class="bi bi-trash"></span>
+
+      <!-- BUTTON DELETE DEVICE -->
+      <div class="col">
+        <button type="submitDeleteDevice" class="btn btn-primary" id="button-del-device" data-toggle="modal" data-target=".bd-example-modal-sm" data-whatever="@getbootstrap" style="background-color: red; border-color:red;">
+          <a id="add-new-device-text"> Delete Device </a>
+          <span class="bi bi-plus-lg"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- POPUP/MODEL DELETE DEVICE -->
+    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 300px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- Title -->
+            <h5 class="modal-title" id="exampleModalLabel">DELETE DEVICE</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" style="height: 125px;">
+            <!-- FORM -->
+            <form action="" method="post">
+              <h3 id='confirmation'>Are you sure?</h3>
+              <div class='footer'>
+
+                <button type="submitDeleteDevice" class="btn btn-primary" data-dismiss="modal">NO</button>
+                <button type="submitDeleteDevice" name="submitDeleteDevice" class="btn btn-primary" id="btn-save" style="background-color: red; border-color:red;">YES</button>
+              </div>
+            </form>
+          </div>
         </div>
-      </form>
+      </div>
     </div>
 
     <!-- Layout Input & Limit -->
@@ -191,6 +219,7 @@ endif;
       </div>
     </div>
 
+    <!-- pH FROM SENSOR -->
     <div class="row align-items-start">
       <div class="col">
         <?php
@@ -198,7 +227,6 @@ endif;
         $sql = "SELECT sensor_ph FROM arduino_data WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
         $result = mysqli_query($conn, $sql);
         ?>
-        <!-- Kolom Data pH Rate -->
         <div class="jumbotron jumbotron-fluid">
           <h3>pH Rate</h3>
           <?php $row = mysqli_fetch_assoc($result)  ?>
@@ -212,13 +240,13 @@ endif;
         </div>
       </div>
 
+      <!-- PPM FROM SENSOR -->
       <div class="col">
         <?php
         // Attempt select query execution
         $sql = "SELECT sensor_ppm FROM arduino_data WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
         $result = mysqli_query($conn, $sql);
         ?>
-        <!-- Kolom Data PPM Rate -->
         <div class="jumbotron jumbotron-fluid">
           <h3>PPM Rate</h3>
           <?php $row = mysqli_fetch_assoc($result) ?>
@@ -232,13 +260,13 @@ endif;
         </div>
       </div>
 
+      <!--WATER LEVEL FROM SENSOR -->
       <div class="col">
         <?php
         // Attempt select query execution
         $sql = "SELECT sensor_level_air FROM arduino_data WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
         $result = mysqli_query($conn, $sql);
         ?>
-        <!-- Kolom Data Water Level -->
         <div class="jumbotron jumbotron-fluid">
           <h3>Water Level</h3>
           <?php $row = mysqli_fetch_assoc($result) ?>
@@ -267,7 +295,7 @@ endif;
       </div>
     </div>
 
-    <!-- Layout Data Log -->
+    <!-- DATA LOG -->
     <div class="jumbotron jumbotron-fluid">
       <h3>Data Log</h3>
 
