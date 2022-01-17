@@ -10,11 +10,9 @@
 GravityTDS gravityTds;
 
 // Variable Declaration
-float dataPh, avg_data_ph, temperature = 25;
-int dataPpm, avg_data_ppm, raw_data_ppm, ppmSensorValue = 0, waterLevelValue = 0;
+float dataPh, avg_data_ph, temperature = 25.0, pH4 = 3.1, pH7 = 2.6, sumValue, pHVolt, pHFormula, phStep;
+int dataPpm, avg_data_ppm, raw_data_ppm, ppmSensorValue = 0, waterLevelValue = 0, ppm_arr[30], pH_arr[30] ;
 String dataWaterLevel, device;
-unsigned long int sumValue; 
-int pH_arr[30],ppm_arr[30];
 
 void setup() {
   Serial.begin(115200);
@@ -48,14 +46,14 @@ float avgPh(){
   delay(10);
  }
 
- sumValue=0;
+ sumValue = 0.0;
  for(int i=5;i<30;i++)
- sumValue+=pH_arr[i];
- 
- float pHVol= sumValue*5.0/1023/25;
- float pHFormula= 7+((2.5-pHVol)/0.18);
- return pHFormula;
+ sumValue += pH_arr[i];
 
+ phStep = (pH4-pH7) / (7-4);
+ pHVolt= sumValue*5.0/1023/25;
+ pHFormula= 7 + ((2.6-pHVolt)/phStep);
+ return pHFormula;
 }
 
 int getDataPpmFromSensor(){

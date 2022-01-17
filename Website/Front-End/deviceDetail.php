@@ -43,9 +43,9 @@ endif;
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous" />
-  <link rel="stylesheet" type="text/css" href="style/style_deviceDetail.css" />
+  <link rel="stylesheet" href="style/style_deviceDetail.css" />
 
-  <title>DEVICE DETAIL</title>
+  <title>DEVICE DETAILS</title>
 </head>
 
 <body>
@@ -61,7 +61,7 @@ endif;
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link" href="index.php">Device Collection</a>
-        <a class="nav-link active" href="deviceDetail.php">Detail Device</a>
+        <a class="nav-link active" href="deviceDetail.php">Device Details</a>
       </div>
     </div>
   </nav>
@@ -71,6 +71,7 @@ endif;
   $dev_id = $_GET["device_id"];
   ?>
 
+
   <!-- INPUT FORM & INFORMASI LAYOUT -->
   <div class="container" id="main-layout">
     <!-- KOLOM NAMA DEVICE & BUTTON DELETE DEVICE -->
@@ -78,7 +79,7 @@ endif;
 
       <!-- DEVICE NAME -->
       <div class="col">
-        <h2 id="judul"><?= $_GET["device_name"]; ?></h2>
+        <h2 id="section" style="margin-left: 30px;"><?= $_GET["device_name"]; ?></h2>
       </div>
 
       <!-- BUTTON DELETE DEVICE -->
@@ -122,29 +123,27 @@ endif;
         <!-- Kolom Input Form -->
         <div class="jumbotron jumbotron-fluid" style="height: 425px;">
           <div class="container">
-            <h2>Input Form</h2>
-
+            <h2 id="section">Input Form</h2>
             <!-- Input Form -->
             <table id="">
               <form action="" method="post">
                 <td><input type="hidden" step=".01" id="dev" name="dev" value="<?= $dev_id ?>" required></td>
 
                 <!-- Input Batasan -->
-                <tr>
-                  <td id="col-label"><label for="batasan_ph" class="h5" style="margin-left: 30px; font-size: 25px; width: 225px">pH Limit</label></td>
-                  <td id="col-input"><input type="number" step=".01" id="batasan_ph" name="batasan_ph" value="" required style="border-radius: 10px; height: 40px;"></td>
-                </tr>
-                <tr>
-                  <td id=" col-label"><label for="batasan_ppm" class="h5" style="margin-left: 30px; font-size: 25px">PPM Limit</label></td>
-                  <td id="col-input"><input type="number" id="batasan_ppm" name="batasan_ppm" value="" required style="border-radius: 10px; height: 40px;" /></td>
-                </tr>
+                <div class="form-group">
+                  <label for="input-form" id="label-form">pH Limit</label>
+                  <input type="number" min=0 step=".1" id="input-form" name="batasan_ph" value="" placeholder="Input pH" required>
+                </div>
+                <div class="form-group">
+                  <label for="input-form" id="label-form">PPM Limit</label>
+                  <input type="number" min=0 id="input-form" name="batasan_ppm" value="" placeholder="Input PPM" required />
+                </div>
 
                 <!-- Input Banyak Air dalam ml -->
-                <tr>
-                  <td id=" col-label"><label for="banyak_air" class="h5" style="margin-left: 30px; font-size: 25px">Water Volume (ml)</label></td>
-                  <td id="col-input"><input type="number" id="banyak_air" name="banyak_air" value="" required style="border-radius: 10px; height: 40px;" /></td>
-                </tr>
-
+                <div class="form-group">
+                  <label for="input-form" id="label-form">Water Volume (ml)</label>
+                  <input type="number" min=0 id="input-form" name="banyak_air" value="" placeholder="Input Water Volume" required />
+                </div>
 
                 <tr class="bottomright">
                   <!-- Button Submit -->
@@ -162,7 +161,7 @@ endif;
           <div class="container">
 
             <!-- Tampil pH limit -->
-            <h3 style="text-align: center;">pH Limit</h3>
+            <h3 id="section" style="text-align: center;">pH Limit</h3>
             <?php
             $sql = "SELECT batasan_ph FROM batasan WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
             $result = mysqli_query($conn, $sql);
@@ -180,7 +179,7 @@ endif;
             <?php endif; ?>
 
             <!-- Tampil PPM Limit -->
-            <h3 style="text-align: center;">PPM Limit</h3>
+            <h3 id="section" style="text-align: center;">PPM Limit</h3>
             <?php
             $sql = "SELECT batasan_ppm FROM batasan WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
             $result = mysqli_query($conn, $sql);
@@ -198,7 +197,7 @@ endif;
             <?php endif; ?>
 
             <!-- Tampil Water Volume -->
-            <h3 style="text-align: center;">Water Volume</h3>
+            <h3 id="section" style="text-align: center;">Water Volume</h3>
             <?php
             $sql = "SELECT banyak_air FROM batasan WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
             $result = mysqli_query($conn, $sql);
@@ -228,7 +227,7 @@ endif;
         $result = mysqli_query($conn, $sql);
         ?>
         <div class="jumbotron jumbotron-fluid">
-          <h3>pH Rate</h3>
+          <h3 id="section">pH Rate</h3>
           <?php $row = mysqli_fetch_assoc($result)  ?>
           <?php if (!$row) :
             echo "<div id='info-value'> 0 </div>";
@@ -248,7 +247,7 @@ endif;
         $result = mysqli_query($conn, $sql);
         ?>
         <div class="jumbotron jumbotron-fluid">
-          <h3>PPM Rate</h3>
+          <h3 id="section">PPM Rate</h3>
           <?php $row = mysqli_fetch_assoc($result) ?>
           <?php if (!$row) :
             echo "<div id='info-value'> 0 </div>";
@@ -268,7 +267,7 @@ endif;
         $result = mysqli_query($conn, $sql);
         ?>
         <div class="jumbotron jumbotron-fluid">
-          <h3>Water Level</h3>
+          <h3 id="section">Water Level</h3>
           <?php $row = mysqli_fetch_assoc($result) ?>
           <?php if (!$row) :
             echo "<div id='info-value'> EMPTY </div>";
@@ -296,8 +295,8 @@ endif;
     </div>
 
     <!-- DATA LOG -->
-    <div class="jumbotron jumbotron-fluid">
-      <h3>Data Log</h3>
+    <div class="jumbotron jumbotron-fluid la">
+      <h3 id="section">Data Log</h3>
 
       <?php
       $index = 1;

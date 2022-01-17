@@ -85,8 +85,8 @@
   border-radius: 50%;
   background-color: #ff4927;
   color: #fff;
-  /* animation: zoom 3s 3s both infinite; */
 }
+
 @keyframes bell {
   0% {
     transform: rotate(0);
