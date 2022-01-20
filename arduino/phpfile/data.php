@@ -20,17 +20,17 @@ $sql_input = "SELECT * FROM batasan WHERE device_id = '$device_id'  ORDER BY dat
 $result = mysqli_query($conn, $sql_input);
 
 while ($row = mysqli_fetch_assoc($result)) :
-    
-    $input_ph = $row['batasan_ph'];
-    $input_ppm = $row['batasan_ppm'];
-    $input_banyak_air = $row['banyak_air'];
+
+  $input_ph = $row['batasan_ph'];
+  $input_ppm = $row['batasan_ppm'];
+  $input_banyak_air = $row['banyak_air'];
 
 endwhile;
 
 // Response
 if ($conn->query($sql) === TRUE) {
-    // membandingkan data sensor dan data yang diinput user
-    // for actuator
+  // membandingkan data sensor dan data yang diinput user
+  // for actuator
   /*
   Dictionary
   pH up -> pu
@@ -38,17 +38,18 @@ if ($conn->query($sql) === TRUE) {
   ppm -> pm
   writing format : 
   */
-$response = "$input_banyak_air*";
-  if ($sensor_ph > $input_ph){
-    $diff = $sensor_ph-$input_ph;
+  $batas_bawah = $input_ph * 95 / 100;
+  $batas_atas = $input_ph * 105 / 100;
+  $response = "$input_banyak_air*";
+  if ($sensor_ph > $batas_atas) {
+    $diff = $sensor_ph - $input_ph;
     $response .= "pd_$diff ";
-  }
-  elseif($sensor_ph < $input_ph){
-    $diff = $input_ph-$sensor_ph;
+  } elseif ($sensor_ph < $batas_bawah) {
+    $diff = $input_ph - $sensor_ph;
     $response .= "pu_$diff ";
   }
-  if ($sensor_ppm < $input_ppm){
-    $diff = $input_ppm-$sensor_ppm;
+  if ($sensor_ppm < $input_ppm) {
+    $diff = $input_ppm - $sensor_ppm;
     $response .= "pm_$diff ";
   }
   echo $response;

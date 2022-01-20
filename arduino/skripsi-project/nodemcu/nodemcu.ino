@@ -3,8 +3,8 @@
 #include <WiFiClient.h>
 
 // Connection stuffs
-const char* ssid = "Alberthome_ext";
-const char* pass = "basketball29";
+const char* ssid = "Hello World";
+const char* pass = "88888888";
 
 // Delay Configuration
 unsigned long lastTime = 0;
@@ -78,7 +78,7 @@ void sendData(String data){
 //   Start HTTP Connection
 //  if (http.begin(client, "http://192.168.1.13/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
   // Start connection and send HTTP header
-  if (http.begin(client, "http://192.168.100.125/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
+  if (http.begin(client, "http://192.168.1.15/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
    
     int httpCode = http.GET();
      if (httpCode > 0){
@@ -175,29 +175,31 @@ int CalDelay_ppm(int diff,float banyak_air){
   int waktu_jeda;
   float ml_yang_diperlukan;
   perbedaan_air = banyak_air/ 1000;
-  ml_yang_diperlukan = diff/5.8*5;
-  waktu_jeda = 2.5* ml_yang_diperlukan/5* 1000*perbedaan_air;
+  ml_yang_diperlukan = diff/1.9*2.2;
+  waktu_jeda = ml_yang_diperlukan/2.2*1000*perbedaan_air;
   return waktu_jeda;
 }
 
-int CalDelay_pu(int diff, float banyak_air){
+int CalDelay_pu(float diff, float banyak_air){
   float perbedaan_air;
   int waktu_jeda;
   float ml_yang_diperlukan;
   perbedaan_air = banyak_air/ 1000;
-  ml_yang_diperlukan = diff/0.5*4;
-  waktu_jeda = 2*ml_yang_diperlukan/4*1000*perbedaan_air;
+  ml_yang_diperlukan = diff/0.051*2.2;
+  waktu_jeda = ml_yang_diperlukan/2.2*1000*perbedaan_air;
   return waktu_jeda;
 }
 
-int CalDelay_pd(int diff, float banyak_air){
+int CalDelay_pd(float diff, float banyak_air){
   float perbedaan_air;
   int waktu_jeda;
   float ml_yang_diperlukan;
   perbedaan_air = banyak_air/ 1000;
-  ml_yang_diperlukan = diff/0.55*4;
-  waktu_jeda = 2*ml_yang_diperlukan/4*1000*perbedaan_air;
+  ml_yang_diperlukan = diff/0.032*2.2;
+  waktu_jeda = ml_yang_diperlukan/2.2*1000*perbedaan_air;
+    Serial.println(waktu_jeda);
   return waktu_jeda;
+
 }
 
 void pu_run(int dly){

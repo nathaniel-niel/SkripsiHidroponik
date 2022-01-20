@@ -10,8 +10,8 @@
 GravityTDS gravityTds;
 
 // Variable Declaration
-float dataPh, avg_data_ph, temperature = 25.0, pH4 = 3.1, pH7 = 2.6, sumValue, pHVolt, pHFormula, phStep;
-int dataPpm, avg_data_ppm, raw_data_ppm, ppmSensorValue = 0, waterLevelValue = 0, ppm_arr[30], pH_arr[30] ;
+float dataPh, avg_data_ph, temperature = 25.0, pH4 = 3.1, pH7 = 2.6, sumValue, pHVolt, pHFormula, phStep, pH_arr[30];
+int dataPpm, avg_data_ppm, raw_data_ppm, ppmSensorValue = 0, waterLevelValue = 0, ppm_arr[30] ;
 String dataWaterLevel, device;
 
 void setup() {
@@ -35,7 +35,7 @@ String getAllData(){
   dataWaterLevel = getDataWaterLevelFromSensor();
 
   device = "DVC001";
-  return "device_id="+device+"&sensor_ph="+String(dataPh)+"&sensor_ppm="+String(dataPpm)+"&sensor_level_air=HIGH";
+  return "device_id="+device+"&sensor_ph="+String(dataPh)+"&sensor_ppm=400&sensor_level_air=HIGH";
 //  return "device_id=DVC001&sensor_ph="+String(dataPh)+"&sensor_ppm="+String(dataPpm)+"&sensor_level_air="+String(dataWaterLevel);
 }
 
