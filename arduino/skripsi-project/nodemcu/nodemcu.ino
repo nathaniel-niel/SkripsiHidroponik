@@ -23,7 +23,6 @@ WiFiClient client;
 String data;
 int incomingByte = 0;
 
-
 void setup() {
   Serial.begin(115200);
   Serial.println("");
@@ -103,20 +102,10 @@ void sendData(String data){
   
         code_water_value_raw = payload.substring(0,payload.indexOf("*"));
         water_value =  code_water_value_raw.toFloat();
-//        Serial.println("RAW VALUE");
-//        Serial.println("nilai air: " + code_water_value_raw);
-//        Serial.println("ppm: " + code_pm_raw);
-//        Serial.println("ph: " + code_ph_raw);
         value_ph = code_ph_raw.substring(code_ph_raw.indexOf("_")+1).toFloat();
         value_pm = code_pm_raw.substring(code_pm_raw.indexOf("_")+1).toInt();
-//        Serial.println("ph and ppm value");
-//        Serial.println("value ph: " +String(value_ph));
-//        Serial.println("value pm: "+String(value_pm));
-//        Serial.println("response code");
         code_ph =  code_ph_raw.substring(0,code_ph_raw.indexOf("_"));
         code_pm = code_pm_raw.substring(0,code_pm_raw.indexOf("_"));
-//        Serial.println("code ph: " +code_ph);
-//        Serial.println("code pm: "+code_pm);
         response = code_ph+code_pm;
         Serial.println("response:" + response);
         
@@ -138,12 +127,9 @@ void sendData(String data){
           }
            Serial.println("water value: " + String(water_value));
            Serial.println("ppm value: " + String(value_pm));
-           
             setPinRate(relay_ppm, HIGH);
             delay(CalDelay_ppm(value_pm, water_value));
-            
             setPinRate(relay_ppm, LOW);
-          
             Serial.println("pm OK!");
         }
         else if(response == "pdpm"){
@@ -197,9 +183,7 @@ int CalDelay_pd(float diff, float banyak_air){
   perbedaan_air = banyak_air/ 1000;
   ml_yang_diperlukan = diff/0.032*2.2;
   waktu_jeda = ml_yang_diperlukan/2.2*1000*perbedaan_air;
-    Serial.println(waktu_jeda);
   return waktu_jeda;
-
 }
 
 void pu_run(int dly){

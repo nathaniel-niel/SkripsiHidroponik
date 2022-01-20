@@ -20,7 +20,6 @@ $sql_input = "SELECT * FROM batasan WHERE device_id = '$device_id'  ORDER BY dat
 $result = mysqli_query($conn, $sql_input);
 
 while ($row = mysqli_fetch_assoc($result)) :
-
   $input_ph = $row['batasan_ph'];
   $input_ppm = $row['batasan_ppm'];
   $input_banyak_air = $row['banyak_air'];
