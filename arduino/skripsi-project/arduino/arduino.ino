@@ -78,13 +78,13 @@ float avgPpm(){
 
 String getDataWaterLevelFromSensor(){
   waterLevelValue= analogRead(pinWaterLevel);
-  if (waterLevelValue >=651){
+  if (waterLevelValue >=381){
     return "HIGH";
   }
-  else if (waterLevelValue>= 430 &&   waterLevelValue <= 650){
+  else if (waterLevelValue>= 51 &&   waterLevelValue <= 380){
     return "MED";
   }
-  else if (waterLevelValue <= 429){
+  else if (waterLevelValue <= 50){
     return "LOW";
   }
 }
