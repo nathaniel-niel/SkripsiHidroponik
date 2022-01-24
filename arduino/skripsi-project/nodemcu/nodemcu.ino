@@ -162,7 +162,7 @@ int CalDelay_ppm(int diff,float banyak_air){
   float ml_yang_diperlukan;
   perbedaan_air = banyak_air/ 1000;
   ml_yang_diperlukan = diff/1.9*2.2;
-  waktu_jeda = ml_yang_diperlukan/2.2*1000*perbedaan_air;
+  waktu_jeda = 1*ml_yang_diperlukan/2.2*1000*perbedaan_air;
   return waktu_jeda;
 }
 
@@ -171,8 +171,8 @@ int CalDelay_pu(float diff, float banyak_air){
   int waktu_jeda;
   float ml_yang_diperlukan;
   perbedaan_air = banyak_air/ 1000;
-  ml_yang_diperlukan = diff/0.051*2.2;
-  waktu_jeda = ml_yang_diperlukan/2.2*1000*perbedaan_air;
+  ml_yang_diperlukan = diff/0.254*11;
+  waktu_jeda = 5*ml_yang_diperlukan/11*1000*perbedaan_air;
   return waktu_jeda;
 }
 
@@ -182,7 +182,7 @@ int CalDelay_pd(float diff, float banyak_air){
   float ml_yang_diperlukan;
   perbedaan_air = banyak_air/ 1000;
   ml_yang_diperlukan = diff/0.032*2.2;
-  waktu_jeda = ml_yang_diperlukan/2.2*1000*perbedaan_air;
+  waktu_jeda = 5*ml_yang_diperlukan/11*1000*perbedaan_air;
   return waktu_jeda;
 }
 
