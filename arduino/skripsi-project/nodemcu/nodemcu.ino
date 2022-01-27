@@ -62,11 +62,8 @@ void loop() {
         while (Serial.available()>0){
           data+= char(Serial.read());
         }
-         //trim data; //for erase the spacing
-        data.trim();
-//         send data to database
-//  Serial.println(data);
-        sendData(data);
+        data.trim(); //for erase the spacing
+        sendData(data); // send data to database
      }
      lastTime = millis();
   }
@@ -75,12 +72,12 @@ void loop() {
 void sendData(String data){
   
 //   Start HTTP Connection
-//  if (http.begin(client, "http://192.168.1.13/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
   // Start connection and send HTTP header
-  if (http.begin(client, "http://192.168.1.15/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
-   
+  if (http.begin(client, "http://192.168.1.16/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
+    
     int httpCode = http.GET();
-     if (httpCode > 0){
+
+    if (httpCode > 0){
       Serial.printf("HTTP code: %d\n", httpCode);
 
       // file found at server
@@ -110,37 +107,37 @@ void sendData(String data){
         Serial.println("response:" + response);
         
         if (response == "pd"){
-            setPinRate(relay_ph_down, HIGH);
-            delay(CalDelay_pd(value_ph, water_value));
-            Serial.println("pd OK!");
-            setPinRate(relay_ph_down, LOW);
+          setPinRate(relay_ph_down, HIGH);
+          delay(CalDelay_pd(value_ph, water_value));
+          Serial.println("pd OK!");
+          setPinRate(relay_ph_down, LOW);
         }
         else if(response == "pu"){
-            setPinRate(relay_ph_up, HIGH);
-            delay(CalDelay_pu(value_ph, water_value));
-            setPinRate(relay_ph_up, LOW);
-            Serial.println("pu OK!");
+          setPinRate(relay_ph_up, HIGH);
+          delay(CalDelay_pu(value_ph, water_value));
+          setPinRate(relay_ph_up, LOW);
+          Serial.println("pu OK!");
         }
         else if(response == "pm"){
           if (value_pm ==0){
             value_pm = value_ph;
           }
-           Serial.println("water value: " + String(water_value));
-           Serial.println("ppm value: " + String(value_pm));
-            setPinRate(relay_ppm, HIGH);
-            delay(CalDelay_ppm(value_pm, water_value));
-            setPinRate(relay_ppm, LOW);
-            Serial.println("pm OK!");
+          Serial.println("water value: " + String(water_value));
+          Serial.println("ppm value: " + String(value_pm));
+          setPinRate(relay_ppm, HIGH);
+          delay(CalDelay_ppm(value_pm, water_value));
+          setPinRate(relay_ppm, LOW);
+          Serial.println("pm OK!");
         }
         else if(response == "pdpm"){
-            pd_run(CalDelay_pu(value_ph, water_value));
-            pm_run(CalDelay_ppm(value_pm, water_value));
-            Serial.println("pdpm OK!");
+          pd_run(CalDelay_pu(value_ph, water_value));
+          pm_run(CalDelay_ppm(value_pm, water_value));
+          Serial.println("pdpm OK!");
         }
         else if(response == "pupm" ){
-             pu_run(CalDelay_pu(value_ph, water_value));
-             pm_run(CalDelay_ppm(value_pm, water_value));
-             Serial.println("pupm OK!");
+          pu_run(CalDelay_pu(value_ph, water_value));
+          pm_run(CalDelay_ppm(value_pm, water_value));
+          Serial.println("pupm OK!");
         }
       }
     }else{
@@ -148,7 +145,7 @@ void sendData(String data){
     }
     http.end();
   }else{
-   Serial.printf("HTTP  unable to connect\n") ;
+    Serial.printf("HTTP  unable to connect\n") ;
   }  
  }
 

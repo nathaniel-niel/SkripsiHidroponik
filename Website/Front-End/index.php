@@ -139,7 +139,7 @@ endif;
     <?php
     $sql = "SELECT device_collection.device_name, arduino_data.sensor_level_air, arduino_data.date FROM device_collection 
               LEFT JOIN arduino_data 
-              ON device_collection.device_id=arduino_data.device_id ORDER BY arduino_data.date DESC";
+              ON device_collection.device_id=arduino_data.device_id ORDER BY arduino_data.date DESC LIMIT 5";
     $result = mysqli_query($conn, $sql);
     ?>
 
