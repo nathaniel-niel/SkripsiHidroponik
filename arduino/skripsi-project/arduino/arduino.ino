@@ -26,22 +26,16 @@ void loop() {
   Serial.println(getAllData());
   avg_data_ppm = 0;
   avg_data_ph = 0;
-  delay(30000);
+  delay(10000);
 }
 
 String getAllData(){
-  dataPh = avgPh();
-  dataPpm = avgPpm();
+//  dataPh = avgPh();
+//  dataPpm = avgPpm();
   dataWaterLevel = getDataWaterLevelFromSensor();
 
   device = "DVC001";
-<<<<<<< HEAD
-//return "device_id="+device+"&sensor_ph=7&sensor_ppm="+String(dataPpm)+"&sensor_level_air=HIGH";
-  return "device_id="+device+"&sensor_ph="+String(dataPh)+"&sensor_ppm=500&sensor_level_air=HIGH";
-//  return "device_id=DVC001&sensor_ph="+String(dataPh)+"&sensor_ppm="+String(dataPpm)+"&sensor_level_air="+String(dataWaterLevel);
-=======
-  return "device_id="+device+"&sensor_ph="+String(dataPh)+"&sensor_ppm="+String(dataPpm)+"&sensor_level_air="+String(dataWaterLevel);
->>>>>>> 1a2d474c578380e15d0e1aa919be58181e6ed01e
+  return "device_id="+device+"&sensor_ph=6.8&sensor_ppm=120&sensor_level_air="+String(dataWaterLevel);
 }
 
 float avgPh(){
@@ -83,10 +77,10 @@ float avgPpm(){
 
 String getDataWaterLevelFromSensor(){
   waterLevelValue= analogRead(pinWaterLevel);
-  if (waterLevelValue >=381){
+  if (waterLevelValue >=321){
     return "HIGH";
   }
-  else if (waterLevelValue>= 51 &&   waterLevelValue <= 380){
+  else if (waterLevelValue>= 51 &&   waterLevelValue <= 320){
     return "MED";
   }
   else if (waterLevelValue <= 50){

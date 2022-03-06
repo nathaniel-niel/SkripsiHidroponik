@@ -8,7 +8,7 @@ const char* pass = "88888888";
 
 // Delay Configuration
 unsigned long lastTime = 0;
-unsigned long timerDelay = 6000;
+unsigned long timerDelay = 10000;
 
 // Object Declaration
 HTTPClient http;
@@ -73,7 +73,7 @@ void sendData(String data){
   
 //   Start HTTP Connection
   // Start connection and send HTTP header
-  if (http.begin(client, "http://192.168.1.16/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
+  if (http.begin(client, "http://192.168.1.18/SkripsiHidroponik/Arduino/skripsi-project/phpfile/data.php?"+data)){
     
     int httpCode = http.GET();
 
@@ -81,6 +81,7 @@ void sendData(String data){
       Serial.printf("HTTP code: %d\n", httpCode);
 
       // file found at server
+      
       if (httpCode == HTTP_CODE_OK || HTTP_CODE_MOVED_PERMANENTLY){
         String payload = http.getString();
         Serial.println(payload);
@@ -178,7 +179,7 @@ int CalDelay_pd(float diff, float banyak_air){
   int waktu_jeda;
   float ml_yang_diperlukan;
   perbedaan_air = banyak_air/ 1000;
-  ml_yang_diperlukan = diff/0.032*2.2;
+  ml_yang_diperlukan = diff/0.158*2.2;
   waktu_jeda = 5*ml_yang_diperlukan/11*1000*perbedaan_air;
   return waktu_jeda;
 }

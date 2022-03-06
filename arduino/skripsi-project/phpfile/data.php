@@ -1,5 +1,5 @@
 <?php
-require '../../global.php';
+ require '../../../global.php';
 
 // get date from time zone
 date_default_timezone_set('Asia/Jakarta');
