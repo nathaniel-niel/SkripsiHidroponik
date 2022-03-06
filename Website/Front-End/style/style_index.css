@@ -85,8 +85,8 @@
   border-radius: 50%;
   background-color: #ff4927;
   color: #fff;
-  /* animation: zoom 3s 3s both infinite; */
 }
+
 @keyframes bell {
   0% {
     transform: rotate(0);
@@ -193,20 +193,16 @@
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  /* color: black; */
   font-size: 25px;
   text-align: center;
 }
 
 #jumbot-divcol {
-  /* margin: auto; */
-  /* margin-bottom: 20px; */
   box-shadow: 0px 0px 15px background;
   padding: auto;
   height: 250px;
   width: Fill;
   position: relative;
-  /* transition: 0.4s all ease-in-out; */
 }
 
 #jumbot-divcol:hover {
@@ -260,7 +256,3 @@
 #content {
   text-align: center;
 }
-
-/* td {
-  border: 1px solid black;
-} */

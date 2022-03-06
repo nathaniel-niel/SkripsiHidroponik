@@ -5,13 +5,13 @@ if (isset($_POST["submitNewDevice"])) :
   if (savedNewDevice($_POST) > 0) :
     echo "
     <script>
-    alert('Device Berhasil Ditambahkan!');
+    alert('DEVICE BERHASIL DITAMBAHKAN!');
     </script>
     ";
   else :
     echo "
     <script>
-    alert('Device Gagal Ditambahkan!');
+    alert('Device GAGAL DITAMBAHKAN!');
     </script>
     ";
   endif;
@@ -36,7 +36,7 @@ endif;
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
-  <!-- bar navigasi -->
+  <!-- NAVIGATION BAR -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <a class="navbar-brand" href="index.php">JNC</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,15 +59,15 @@ endif;
     </a>
   </nav>
 
-  <!-- Layout Collection of Devices -->
+  <!-- LAYOUT COLLECTION OF DEVICES -->
   <div class="container" id="main-layout">
-    <!-- Kolom Title & Button Add New Device -->
+    <!-- KOLOM TITLE & BUTTON ADD NEW DEVICE -->
     <div class="row align-items-start">
-      <!-- Title -->
+      <!-- TITLE -->
       <div class="col">
         <h2>Collection of Devices</h2>
       </div>
-      <!-- Button Add New Device -->
+      <!-- BUTTON ADD NEW DEVICE -->
       <div class="col">
         <button type="button" class="btn btn-primary" id="button-new-device" data-toggle="modal" data-target="#exampleModalCenter" data-whatever="@getbootstrap">
           <a id="add-new-device-text"> Add New Device </a>
@@ -76,7 +76,7 @@ endif;
       </div>
     </div>
 
-    <!-- Popup/Model Add New Device -->
+    <!-- POPUP/MODEL ADD NEW DEVICE -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 600px;">
         <div class="modal-content">
@@ -88,7 +88,7 @@ endif;
             </button>
           </div>
           <div class="modal-body" style="height: 250px;">
-            <!-- Form -->
+            <!-- FORM -->
             <form action="" method="post">
               <table>
                 <tr>
@@ -139,7 +139,7 @@ endif;
     <?php
     $sql = "SELECT device_collection.device_name, arduino_data.sensor_level_air, arduino_data.date FROM device_collection 
               LEFT JOIN arduino_data 
-              ON device_collection.device_id=arduino_data.device_id ORDER BY device_collection.date DESC";
+              ON device_collection.device_id=arduino_data.device_id ORDER BY arduino_data.date DESC LIMIT 5";
     $result = mysqli_query($conn, $sql);
     ?>
 

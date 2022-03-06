@@ -3,8 +3,8 @@
 #include <WiFiClient.h>
 
 // Connection stuffs
-const char* ssid = "Alberthome_ext";
-const char* pass = "basketball29";
+const char* ssid = "Hello World";
+const char* pass = "88888888";
 
 // Delay Configuration
 unsigned long lastTime = 0;
@@ -22,7 +22,6 @@ WiFiClient client;
 // Variables
 String data;
 int incomingByte = 0;
-
 
 void setup() {
   Serial.begin(115200);
@@ -63,11 +62,8 @@ void loop() {
         while (Serial.available()>0){
           data+= char(Serial.read());
         }
-         //trim data; //for erase the spacing
-        data.trim();
-//         send data to database
-//  Serial.println(data);
-        sendData(data);
+        data.trim(); //for erase the spacing
+        sendData(data); // send data to database
      }
      lastTime = millis();
   }
@@ -76,12 +72,12 @@ void loop() {
 void sendData(String data){
   
 //   Start HTTP Connection
-//  if (http.begin(client, "http://192.168.1.13/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
   // Start connection and send HTTP header
-  if (http.begin(client, "http://192.168.100.125/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
-   
+  if (http.begin(client, "http://192.168.1.16/SkripsiHidroponik/arduino/phpfile/data.php?"+data)){
+    
     int httpCode = http.GET();
-     if (httpCode > 0){
+
+    if (httpCode > 0){
       Serial.printf("HTTP code: %d\n", httpCode);
 
       // file found at server
@@ -103,58 +99,45 @@ void sendData(String data){
   
         code_water_value_raw = payload.substring(0,payload.indexOf("*"));
         water_value =  code_water_value_raw.toFloat();
-//        Serial.println("RAW VALUE");
-//        Serial.println("nilai air: " + code_water_value_raw);
-//        Serial.println("ppm: " + code_pm_raw);
-//        Serial.println("ph: " + code_ph_raw);
         value_ph = code_ph_raw.substring(code_ph_raw.indexOf("_")+1).toFloat();
         value_pm = code_pm_raw.substring(code_pm_raw.indexOf("_")+1).toInt();
-//        Serial.println("ph and ppm value");
-//        Serial.println("value ph: " +String(value_ph));
-//        Serial.println("value pm: "+String(value_pm));
-//        Serial.println("response code");
         code_ph =  code_ph_raw.substring(0,code_ph_raw.indexOf("_"));
         code_pm = code_pm_raw.substring(0,code_pm_raw.indexOf("_"));
-//        Serial.println("code ph: " +code_ph);
-//        Serial.println("code pm: "+code_pm);
         response = code_ph+code_pm;
         Serial.println("response:" + response);
         
         if (response == "pd"){
-            setPinRate(relay_ph_down, HIGH);
-            delay(CalDelay_pd(value_ph, water_value));
-            Serial.println("pd OK!");
-            setPinRate(relay_ph_down, LOW);
+          setPinRate(relay_ph_down, HIGH);
+          delay(CalDelay_pd(value_ph, water_value));
+          Serial.println("pd OK!");
+          setPinRate(relay_ph_down, LOW);
         }
         else if(response == "pu"){
-            setPinRate(relay_ph_up, HIGH);
-            delay(CalDelay_pu(value_ph, water_value));
-            setPinRate(relay_ph_up, LOW);
-            Serial.println("pu OK!");
+          setPinRate(relay_ph_up, HIGH);
+          delay(CalDelay_pu(value_ph, water_value));
+          setPinRate(relay_ph_up, LOW);
+          Serial.println("pu OK!");
         }
         else if(response == "pm"){
           if (value_pm ==0){
             value_pm = value_ph;
           }
-           Serial.println("water value: " + String(water_value));
-           Serial.println("ppm value: " + String(value_pm));
-           
-            setPinRate(relay_ppm, HIGH);
-            delay(CalDelay_ppm(value_pm, water_value));
-            
-            setPinRate(relay_ppm, LOW);
-          
-            Serial.println("pm OK!");
+          Serial.println("water value: " + String(water_value));
+          Serial.println("ppm value: " + String(value_pm));
+          setPinRate(relay_ppm, HIGH);
+          delay(CalDelay_ppm(value_pm, water_value));
+          setPinRate(relay_ppm, LOW);
+          Serial.println("pm OK!");
         }
         else if(response == "pdpm"){
-            pd_run(CalDelay_pu(value_ph, water_value));
-            pm_run(CalDelay_ppm(value_pm, water_value));
-            Serial.println("pdpm OK!");
+          pd_run(CalDelay_pu(value_ph, water_value));
+          pm_run(CalDelay_ppm(value_pm, water_value));
+          Serial.println("pdpm OK!");
         }
         else if(response == "pupm" ){
-             pu_run(CalDelay_pu(value_ph, water_value));
-             pm_run(CalDelay_ppm(value_pm, water_value));
-             Serial.println("pupm OK!");
+          pu_run(CalDelay_pu(value_ph, water_value));
+          pm_run(CalDelay_ppm(value_pm, water_value));
+          Serial.println("pupm OK!");
         }
       }
     }else{
@@ -162,7 +145,7 @@ void sendData(String data){
     }
     http.end();
   }else{
-   Serial.printf("HTTP  unable to connect\n") ;
+    Serial.printf("HTTP  unable to connect\n") ;
   }  
  }
 
@@ -175,28 +158,28 @@ int CalDelay_ppm(int diff,float banyak_air){
   int waktu_jeda;
   float ml_yang_diperlukan;
   perbedaan_air = banyak_air/ 1000;
-  ml_yang_diperlukan = diff/5.8*5;
-  waktu_jeda = 2.5* ml_yang_diperlukan/5* 1000*perbedaan_air;
+  ml_yang_diperlukan = diff/1.9*2.2;
+  waktu_jeda = 1*ml_yang_diperlukan/2.2*1000*perbedaan_air;
   return waktu_jeda;
 }
 
-int CalDelay_pu(int diff, float banyak_air){
+int CalDelay_pu(float diff, float banyak_air){
   float perbedaan_air;
   int waktu_jeda;
   float ml_yang_diperlukan;
   perbedaan_air = banyak_air/ 1000;
-  ml_yang_diperlukan = diff/0.5*4;
-  waktu_jeda = 2*ml_yang_diperlukan/4*1000*perbedaan_air;
+  ml_yang_diperlukan = diff/0.254*11;
+  waktu_jeda = 5*ml_yang_diperlukan/11*1000*perbedaan_air;
   return waktu_jeda;
 }
 
-int CalDelay_pd(int diff, float banyak_air){
+int CalDelay_pd(float diff, float banyak_air){
   float perbedaan_air;
   int waktu_jeda;
   float ml_yang_diperlukan;
   perbedaan_air = banyak_air/ 1000;
-  ml_yang_diperlukan = diff/0.55*4;
-  waktu_jeda = 2*ml_yang_diperlukan/4*1000*perbedaan_air;
+  ml_yang_diperlukan = diff/0.032*2.2;
+  waktu_jeda = 5*ml_yang_diperlukan/11*1000*perbedaan_air;
   return waktu_jeda;
 }
 

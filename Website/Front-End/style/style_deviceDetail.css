@@ -29,8 +29,36 @@
   font-size: 35px;
 }
 
-#kolom-input {
-  height: 300px;
+#label-form {
+  font-size: 25px;
+  font-weight: bold;
+  text-align: left;
+  width: 250px;
+  height: 50px;
+  margin: 0;
+}
+
+#input-form {
+  border-radius: 10px;
+  height: 40px;
+  padding-left: 10px;
+}
+
+#confirmation {
+  vertical-align: middle;
+}
+
+#section {
+  font-weight: bolder;
+}
+
+.form-group {
+  margin-left: 30px;
+  margin-top: 15px;
+}
+
+::placeholder {
+  padding-left: 3px;
 }
 
 .jumbotron {
@@ -47,28 +75,14 @@
   font-size: 60px;
 }
 
-.h3 {
-  margin: 0;
+#confirmation {
+  text-align: center;
 }
 
 .container {
   position: relative;
   height: 100%;
   padding: 0px;
-}
-
-#col-label {
-  text-align: left;
-  width: 150px;
-  height: 50px;
-}
-
-#col-input {
-  padding-left: 30px;
-  width: 300px;
-  height: 50px;
-  padding-top: 20px;
-  padding-bottom: 20px;
 }
 
 .bottomright {
@@ -102,6 +116,9 @@
   border: 0;
 }
 
-/* td {
-  border: 1px solid black;
-} */
+.footer {
+  position: absolute;
+  bottom: 10px;
+  right: 16px;
+  font-size: 18px;
+}

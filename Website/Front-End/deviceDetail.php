@@ -5,13 +5,13 @@ if (isset($_POST["submitBatasan"])) :
   if (savedBatasan($_POST) > 0) :
     echo "
     <script>
-    alert('Batasan Berhasil Tersimpan!');
+    alert('BATASAN BERHASIL DISIMPAN!');
     </script>
     ";
   else :
     echo "
     <script>
-    alert('Batasan Gagal Tersimpan!');
+    alert('BATASAN GAGAL DISIMPAN!');
     </script>
     ";
   endif;
@@ -21,14 +21,14 @@ if (isset($_POST["submitDeleteDevice"])) :
   if (deleteDevice($_POST) > 0) :
     echo "
     <script>
-    alert('Device Berhasil Dihapus!');
+    alert('DEVICE BERHASIL DIHAPUS!');
     document.location.href = 'index.php';
     </script>
     ";
   else :
     echo "
     <script>
-    alert('Device Gagal Dihapus!');
+    alert('DEVICE GAGAL DIHAPUS!');
     </script>
     ";
   endif;
@@ -43,16 +43,16 @@ endif;
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous" />
-  <link rel="stylesheet" type="text/css" href="style/style_deviceDetail.css" />
+  <link rel="stylesheet" href="style/style_deviceDetail.css" />
 
-  <title>DEVICE DETAIL</title>
+  <title>DEVICE DETAILS</title>
 </head>
 
 <body>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
-  <!-- bar navigasi -->
+  <!-- NAVIGATION BAR -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <a class="navbar-brand" href="index.php">JNC</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,31 +61,60 @@ endif;
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link" href="index.php">Device Collection</a>
-        <a class="nav-link active" href="deviceDetail.php">Detail Device</a>
+        <a class="nav-link active" href="deviceDetail.php">Device Details</a>
       </div>
     </div>
   </nav>
 
-  <!-- GET Device ID From url -->
+  <!-- GET DEVICE ID FROM URL -->
   <?php
   $dev_id = $_GET["device_id"];
   ?>
 
-  <!-- Input Form & Informasi Layout -->
+
+  <!-- INPUT FORM & INFORMASI LAYOUT -->
   <div class="container" id="main-layout">
-    <!-- Kolom Nama Device & Button Delete Device -->
+    <!-- KOLOM NAMA DEVICE & BUTTON DELETE DEVICE -->
     <div class="row align-items-start">
-      <!-- Nama Device -->
+
+      <!-- DEVICE NAME -->
       <div class="col">
-        <h2 id="judul"><?= $_GET["device_name"]; ?></h2>
+        <h2 id="section" style="margin-left: 30px;"><?= $_GET["device_name"]; ?></h2>
       </div>
-      <!-- Button Delete Device -->
-      <form action="" method="post">
-        <div class="col">
-          <button type="submitDeleteDevice" name="submitDeleteDevice" class="btn btn-primary" id="button-del-device" style="background-color: red; border-color:red;"> Delete Device </button>
-          <span class="bi bi-trash"></span>
+
+      <!-- BUTTON DELETE DEVICE -->
+      <div class="col">
+        <button type="submitDeleteDevice" class="btn btn-primary" id="button-del-device" data-toggle="modal" data-target=".bd-example-modal-sm" data-whatever="@getbootstrap" style="background-color: red; border-color:red;">
+          <a id="add-new-device-text"> Delete Device </a>
+          <span class="bi bi-plus-lg"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- POPUP/MODEL DELETE DEVICE -->
+    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 300px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- Title -->
+            <h5 class="modal-title" id="exampleModalLabel">DELETE DEVICE</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" style="height: 125px;">
+            <!-- FORM -->
+            <form action="" method="post">
+              <h3 id='confirmation'>Are you sure?</h3>
+              <div class='footer'>
+
+                <button type="submitDeleteDevice" class="btn btn-primary" data-dismiss="modal">NO</button>
+                <button type="submitDeleteDevice" name="submitDeleteDevice" class="btn btn-primary" id="btn-save" style="background-color: red; border-color:red;">YES</button>
+              </div>
+            </form>
+          </div>
         </div>
-      </form>
+      </div>
     </div>
 
     <!-- Layout Input & Limit -->
@@ -94,29 +123,27 @@ endif;
         <!-- Kolom Input Form -->
         <div class="jumbotron jumbotron-fluid" style="height: 425px;">
           <div class="container">
-            <h2>Input Form</h2>
-
+            <h2 id="section">Input Form</h2>
             <!-- Input Form -->
             <table id="">
               <form action="" method="post">
                 <td><input type="hidden" step=".01" id="dev" name="dev" value="<?= $dev_id ?>" required></td>
 
                 <!-- Input Batasan -->
-                <tr>
-                  <td id="col-label"><label for="batasan_ph" class="h5" style="margin-left: 30px; font-size: 25px; width: 225px">pH Limit</label></td>
-                  <td id="col-input"><input type="number" step=".01" id="batasan_ph" name="batasan_ph" value="" required style="border-radius: 10px; height: 40px;"></td>
-                </tr>
-                <tr>
-                  <td id=" col-label"><label for="batasan_ppm" class="h5" style="margin-left: 30px; font-size: 25px">PPM Limit</label></td>
-                  <td id="col-input"><input type="number" id="batasan_ppm" name="batasan_ppm" value="" required style="border-radius: 10px; height: 40px;" /></td>
-                </tr>
+                <div class="form-group">
+                  <label for="input-form" id="label-form">pH Limit</label>
+                  <input type="number" min=0 step=".1" id="input-form" name="batasan_ph" value="" placeholder="Input pH" required>
+                </div>
+                <div class="form-group">
+                  <label for="input-form" id="label-form">PPM Limit</label>
+                  <input type="number" min=0 id="input-form" name="batasan_ppm" value="" placeholder="Input PPM" required />
+                </div>
 
                 <!-- Input Banyak Air dalam ml -->
-                <tr>
-                  <td id=" col-label"><label for="banyak_air" class="h5" style="margin-left: 30px; font-size: 25px">Water Volume (ml)</label></td>
-                  <td id="col-input"><input type="number" id="banyak_air" name="banyak_air" value="" required style="border-radius: 10px; height: 40px;" /></td>
-                </tr>
-
+                <div class="form-group">
+                  <label for="input-form" id="label-form">Water Volume (ml)</label>
+                  <input type="number" min=0 id="input-form" name="banyak_air" value="" placeholder="Input Water Volume" required />
+                </div>
 
                 <tr class="bottomright">
                   <!-- Button Submit -->
@@ -134,7 +161,7 @@ endif;
           <div class="container">
 
             <!-- Tampil pH limit -->
-            <h3 style="text-align: center;">pH Limit</h3>
+            <h3 id="section" style="text-align: center;">pH Limit</h3>
             <?php
             $sql = "SELECT batasan_ph FROM batasan WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
             $result = mysqli_query($conn, $sql);
@@ -152,7 +179,7 @@ endif;
             <?php endif; ?>
 
             <!-- Tampil PPM Limit -->
-            <h3 style="text-align: center;">PPM Limit</h3>
+            <h3 id="section" style="text-align: center;">PPM Limit</h3>
             <?php
             $sql = "SELECT batasan_ppm FROM batasan WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
             $result = mysqli_query($conn, $sql);
@@ -170,7 +197,7 @@ endif;
             <?php endif; ?>
 
             <!-- Tampil Water Volume -->
-            <h3 style="text-align: center;">Water Volume</h3>
+            <h3 id="section" style="text-align: center;">Water Volume</h3>
             <?php
             $sql = "SELECT banyak_air FROM batasan WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
             $result = mysqli_query($conn, $sql);
@@ -191,6 +218,7 @@ endif;
       </div>
     </div>
 
+    <!-- pH FROM SENSOR -->
     <div class="row align-items-start">
       <div class="col">
         <?php
@@ -198,9 +226,8 @@ endif;
         $sql = "SELECT sensor_ph FROM arduino_data WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
         $result = mysqli_query($conn, $sql);
         ?>
-        <!-- Kolom Data pH Rate -->
         <div class="jumbotron jumbotron-fluid">
-          <h3>pH Rate</h3>
+          <h3 id="section">pH Rate</h3>
           <?php $row = mysqli_fetch_assoc($result)  ?>
           <?php if (!$row) :
             echo "<div id='info-value'> 0 </div>";
@@ -212,15 +239,15 @@ endif;
         </div>
       </div>
 
+      <!-- PPM FROM SENSOR -->
       <div class="col">
         <?php
         // Attempt select query execution
         $sql = "SELECT sensor_ppm FROM arduino_data WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
         $result = mysqli_query($conn, $sql);
         ?>
-        <!-- Kolom Data PPM Rate -->
         <div class="jumbotron jumbotron-fluid">
-          <h3>PPM Rate</h3>
+          <h3 id="section">PPM Rate</h3>
           <?php $row = mysqli_fetch_assoc($result) ?>
           <?php if (!$row) :
             echo "<div id='info-value'> 0 </div>";
@@ -232,15 +259,15 @@ endif;
         </div>
       </div>
 
+      <!--WATER LEVEL FROM SENSOR -->
       <div class="col">
         <?php
         // Attempt select query execution
         $sql = "SELECT sensor_level_air FROM arduino_data WHERE device_id='$dev_id' ORDER BY date DESC LIMIT 1";
         $result = mysqli_query($conn, $sql);
         ?>
-        <!-- Kolom Data Water Level -->
         <div class="jumbotron jumbotron-fluid">
-          <h3>Water Level</h3>
+          <h3 id="section">Water Level</h3>
           <?php $row = mysqli_fetch_assoc($result) ?>
           <?php if (!$row) :
             echo "<div id='info-value'> EMPTY </div>";
@@ -267,9 +294,9 @@ endif;
       </div>
     </div>
 
-    <!-- Layout Data Log -->
-    <div class="jumbotron jumbotron-fluid">
-      <h3>Data Log</h3>
+    <!-- DATA LOG -->
+    <div class="jumbotron jumbotron-fluid la">
+      <h3 id="section">Data Log</h3>
 
       <?php
       $index = 1;
