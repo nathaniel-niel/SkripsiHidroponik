@@ -35,13 +35,7 @@ String getAllData(){
   dataWaterLevel = getDataWaterLevelFromSensor();
 
   device = "DVC001";
-<<<<<<< HEAD
-//return "device_id="+device+"&sensor_ph=7&sensor_ppm="+String(dataPpm)+"&sensor_level_air=HIGH";
-  return "device_id="+device+"&sensor_ph="+String(dataPh)+"&sensor_ppm=500&sensor_level_air=HIGH";
-//  return "device_id=DVC001&sensor_ph="+String(dataPh)+"&sensor_ppm="+String(dataPpm)+"&sensor_level_air="+String(dataWaterLevel);
-=======
   return "device_id="+device+"&sensor_ph="+String(dataPh)+"&sensor_ppm="+String(dataPpm)+"&sensor_level_air="+String(dataWaterLevel);
->>>>>>> 1a2d474c578380e15d0e1aa919be58181e6ed01e
 }
 
 float avgPh(){
